@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hetal Solanki - Frontend Developer</title>
+  <link rel="icon" type="image/x-icon" href="hetal-logo-all-white.svg" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    rel="stylesheet"
+  />
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+  />
+</head>
+
+<body>
+  <!-- Navbar Start -->
+  <header class="navbar">
+    <!-- Hamburger Button (mobile) -->
+    <img src="hetal-logo-all-black.svg" alt="" style="width: 40px;">
+    <!-- <button class="hamburger" id="hamburger" aria-label="Toggle menu">☰</button> -->
+    <a href="resume.html" class="nav-link" style="color: black;">Resume</a>
+
+
+    <!-- Navigation Menu -->
+    <nav id="nav-menu">
+      <a href="#about" class="nav-link">About</a>
+      <a href="#skills" class="nav-link">Skills</a>
+      <a href="#projects" class="nav-link">Projects</a>
+      <a href="#certificate" class="nav-link">Certificates</a>
+      <a href="#contact" class="nav-link">Contact</a>
+      <!-- <a href="resume.html" class="nav-link" style="color: black;">Resume</a> -->
+    </nav>
+
+    <!-- Theme Toggle -->
+    <!-- <button id="theme-toggle" class="theme-toggle-btn">
+      <i class="fas fa-moon"></i>
+    </button> -->
+  </header>
+  <!-- Navbar End -->
+
+  <!-- Hero Section -->
+  <main class="hero-section">
+    <div class="hero-content">
+      <h1 class="main-heading">Hello, I'm<br>Hetal Solanki</h1>
+      <p class="typing-text"></p>
+      <p class="description">
+        I create beautiful, functional, and user-centered digital experiences.
+        Passionate about turning ideas into interactive reality through clean
+        code and thoughtful design.
+      </p>
+      <div class="button-group">
+        <a href="#projects" class="btn btn-primary">View My Work</a>
+        <a href="#contact" class="btn btn-secondary">Get In Touch</a>
+      </div>
+      <div class="social-links">
+        <a href="https://github.com/solankihetal-coder"><i class="fab fa-github"></i></a>
+        <a href="https://www.linkedin.com/in/hetal-solanki22"><i class="fab fa-linkedin"></i></a>
+        <a href="https://www.behance.net/hetalsolanki11"><i class="fab fa-behance"></i></a>
+      </div>
+    </div>
+
+    <div class="hero-image-container">
+      <div class="circle-image-wrapper">
+        <img
+          src="hetal-half.jpg"
+          alt="Hetal Solanki's professional headshot"
+          class="hero-image"
+        />
+      </div>
+      <div class="icon-bubble top-right">
+        <i class="fas fa-code"></i>
+      </div>
+      <div class="icon-bubble bottom-left">
+        <i class="fa-solid fa-palette"></i>
+      </div>
+    </div>
+  </main>
+
+    <div class="scroll-indicator">
+        <i class="fas fa-arrow-down"></i>
+    </div>
+
+
+<section class="about-section" id="about">
+  <h2 class="section-title">About Me</h2>
+  <div class="about-container">
+    <!-- Left: Image -->
+    <div class="about-image">
+      <img src="fronend.png" class="profile-photo" alt="Profile Photo" style="height: 600px;">
+    </div>
+
+    <!-- Right: Content -->
+    <div class="about-content">
+      <h3>A passionate Frontend Developer & UI/UX Designer</h3>
+      <!-- <p>
+        With over 4 years of experience in the digital design and development industry,
+        I specialize in creating intuitive user interfaces and seamless user experiences.
+        My journey began with a fascination for how design and technology can work together
+        to solve real-world problems.
+      </p> -->
+      <p>
+        I have a strong background in both front-end development and UI/UX design, which allows
+        me to bridge the gap between design and implementation. I'm passionate about creating
+        digital products that are not only visually appealing but also highly functional and
+        user-friendly.
+      </p>
+      <p>
+        When I'm not coding or designing, you can find me exploring the latest design trends,
+        contributing to open-source projects, or mentoring aspiring developers and designers.
+      </p>
+
+      <!-- Stats -->
+      <div class="about-stats">
+        <div class="stat">
+          <h4>2+</h4>
+          <span>Years Experience</span>
+        </div>
+        <div class="stat">
+          <h4>10+</h4>
+          <span>Projects Completed</span>
+        </div>
+        <div class="stat">
+          <h4>20+</h4>
+          <span>Tools & Technologies</span>
+        </div>
+        <!-- <div class="stat">
+          <h4>10+</h4>
+          <span></span>
+        </div> -->
+      </div>
+    </div>
+  </div>
+</section>
+
+
+    <section id="skills" class="skills-section">
+        <h2 class="section-title">Skills & Expertise</h2>
+        <p class="section-description">
+            Here are the technologies and tools I use to bring ideas to life
+        </p>
+
+        <div class="skills-filters">
+            <button class="skill-filter-btn active" data-category="frontend">
+                <i class="fas fa-code"></i> Frontend Development
+            </button>
+            <button class="skill-filter-btn" data-category="ui-ux">
+                <i class="fas fa-palette"></i> UI/UX Design
+            </button>
+            <button class="skill-filter-btn" data-category="tools">
+                <i class="fas fa-tools"></i> Tools & Technologies
+            </button>
+        </div>
+
+        <div class="skills-grid">
+            <div class="skill-card frontend-skill" data-skill="react">
+                <div class="skill-header">
+                    <i class="fab fa-react"></i>
+                    <span>React</span>
+                    <span class="skill-percentage">95%</span>
+                </div>
+                <div class="progress-bar-container">
+                    <div class="progress-bar" style="width: 95%;"></div>
+                </div>
+            </div>
+            <!-- <div class="skill-card frontend-skill" data-skill="typescript">
+                <div class="skill-header">
+                    <i class="fas fa-laptop-code"></i>
+                    <span>TypeScript</span>
+                    <span class="skill-percentage">90%</span>
+                </div>
+                <div class="progress-bar-container">
+                    <div class="progress-bar" style="width: 90%;"></div>
+                </div>
+            </div> -->
+            <div class="skill-card frontend-skill" data-skill="nextjs">
+                <div class="skill-header">
+                    <i class="fas fa-file-code"></i>
+                    <span>Next.js</span>
+                    <span class="skill-percentage">88%</span>
+                </div>
+                <div class="progress-bar-container">
+                    <div class="progress-bar" style="width: 88%;"></div>
+                </div>
+            </div>
+            <div class="skill-card frontend-skill" data-skill="html-css">
+                <div class="skill-header">
+                    <i class="fab fa-html5"></i>
+                    <span>HTML/CSS</span>
+                    <span class="skill-percentage">95%</span>
+                </div>
+                <div class="progress-bar-container">
+                    <div class="progress-bar" style="width: 95%;"></div>
+                </div>
+            </div>
+            <div class="skill-card frontend-skill" data-skill="tailwind-css">
+                <div class="skill-header">
+                    <i class="fas fa-wind"></i>
+                    <span>Tailwind CSS</span>
+                    <span class="skill-percentage">92%</span>
+                </div>
+                <div class="progress-bar-container">
+                    <div class="progress-bar" style="width: 92%;"></div>
+                </div>
+            </div>
+            <div class="skill-card frontend-skill" data-skill="javascript">
+                <div class="skill-header">
+                    <i class="fab fa-js-square"></i>
+                    <span>JavaScript</span>
+                    <span class="skill-percentage">93%</span>
+                </div>
+                <div class="progress-bar-container">
+                    <div class="progress-bar" style="width: 93%;"></div>
+                </div>
+            </div>
+
+            <div class="skill-card ui-ux-skill hidden" data-skill="figma">
+                <div class="skill-header">
+                    <i class="fab fa-figma"></i>
+                    <span>Figma</span>
+                    <span class="skill-percentage">95%</span>
+                </div>
+                <div class="progress-bar-container">
+                    <div class="progress-bar" style="width: 95%;"></div>
+                </div>
+            </div>
+            <!-- <div class="skill-card ui-ux-skill hidden" data-skill="adobe-xd">
+                <div class="skill-header">
+                    <i class="fas fa-pencil-ruler"></i>
+                    <span>Adobe XD</span>
+                    <span class="skill-percentage">88%</span>
+                </div>
+                <div class="progress-bar-container">
+                    <div class="progress-bar" style="width: 88%;"></div>
+                </div>
+            </div> -->
+            <!-- <div class="skill-card ui-ux-skill hidden" data-skill="photoshop">
+                <div class="skill-header">
+                    <i class="fas fa-paint-brush"></i>
+                    <span>Photoshop</span>
+                    <span class="skill-percentage">85%</span>
+                </div>
+                <div class="progress-bar-container">
+                    <div class="progress-bar" style="width: 85%;"></div>
+                </div>
+            </div> -->
+            <div class="skill-card ui-ux-skill hidden" data-skill="illustrator">
+                <div class="skill-header">
+                    <i class="fa-brands fa-sketch"></i>
+                    <span>Sketch</span>
+                    <span class="skill-percentage">82%</span>
+                </div>
+                <div class="progress-bar-container">
+                    <div class="progress-bar" style="width: 82%;"></div>
+                </div>
+            </div>
+            <div class="skill-card ui-ux-skill hidden" data-skill="prototyping">
+                <div class="skill-header">
+                    <i class="fas fa-object-ungroup"></i>
+                    <span>Prototyping</span>
+                    <span class="skill-percentage">92%</span>
+                </div>
+                <div class="progress-bar-container">
+                    <div class="progress-bar" style="width: 92%;"></div>
+                </div>
+            </div>
+            <div class="skill-card ui-ux-skill hidden" data-skill="user-research">
+                <div class="skill-header">
+                    <i class="fas fa-users"></i>
+                    <span>User Research</span>
+                    <span class="skill-percentage">87%</span>
+                </div>
+                <div class="progress-bar-container">
+                    <div class="progress-bar" style="width: 87%;"></div>
+                </div>
+            </div>
+
+            <div class="skill-card tools-skill hidden" data-skill="git-github">
+                <div class="skill-header">
+                    <i class="fab fa-git-alt"></i>
+                    <span>Git/GitHub</span>
+                    <span class="skill-percentage">90%</span>
+                </div>
+                <div class="progress-bar-container">
+                    <div class="progress-bar" style="width: 90%;"></div>
+                </div>
+            </div>
+            <div class="skill-card tools-skill hidden" data-skill="vs-code">
+                <div class="skill-header">
+                    <i class="fas fa-terminal"></i>
+                    <span>VS Code</span>
+                    <span class="skill-percentage">95%</span>
+                </div>
+                <div class="progress-bar-container">
+                    <div class="progress-bar" style="width: 95%;"></div>
+                </div>
+            </div>
+            <!-- <div class="skill-card tools-skill hidden" data-skill="webpack">
+                <div class="skill-header">
+                    <i class="fas fa-box-open"></i>
+                    <span>Webpack</span>
+                    <span class="skill-percentage">80%</span>
+                </div>
+                <div class="progress-bar-container">
+                    <div class="progress-bar" style="width: 80%;"></div>
+                </div>
+            </div> -->
+            <div class="skill-card tools-skill hidden" data-skill="api-integration">
+                <div class="skill-header">
+                    <i class="fas fa-share-alt"></i>
+                    <span>API Integration</span>
+                    <span class="skill-percentage">88%</span>
+                </div>
+                <div class="progress-bar-container">
+                    <div class="progress-bar" style="width: 88%;"></div>
+                </div>
+            </div>
+            <div class="skill-card tools-skill hidden" data-skill="testing">
+                <div class="skill-header">
+                    <i class="fas fa-vial"></i>
+                    <span>Testing</span>
+                    <span class="skill-percentage">82%</span>
+                </div>
+                <div class="progress-bar-container">
+                    <div class="progress-bar" style="width: 82%;"></div>
+                </div>
+            </div>
+            <div class="skill-card tools-skill hidden" data-skill="performance">
+                <div class="skill-header">
+                    <!-- <i class="fas fa-rocket"></i> -->
+                    <i class="fa-brands fa-figma"></i>
+                    <span>Figma</span>
+                    <span class="skill-percentage">85%</span>
+                </div>
+                <div class="progress-bar-container">
+                    <div class="progress-bar" style="width: 85%;"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section id="projects" class="projects-section">
+        <h2 class="section-title">My Projects</h2>
+        <p class="section-description">
+            A showcase of my recent work spanning web development, mobile applications,
+            and UI/UX design
+        </p>
+
+  <div class="project-filters">
+  <button class="filter-btn active" data-category="all"> 
+    <i class="fas fa-layer-group"></i> All Projects
+  </button>
+  <button class="filter-btn" data-category="web">
+    <i class="fas fa-code"></i> Web Development
+  </button>
+  <button class="filter-btn" data-category="mobile">
+    <i class="fas fa-mobile-alt"></i> Mobile Apps
+  </button>
+  <button class="filter-btn" data-category="design">
+    <i class="fas fa-pencil-ruler"></i> UI/UX Design
+  </button>
+</div>
+
+        <div class="project-grid">
+            <div class="project-card" data-category="web">
+                <div class="project-image-wrapper">
+                    <img src="savvy-shopper.svg" alt="E-Commerce Platform" class="project-thumbnail">
+                    <span class="project-category-tag web">web</span>
+                </div>
+                <h3 class="project-title">E-Commerce Platform</h3>
+                <!-- <p class="project-description">
+                    An e-commerce platform built with html, css and js, cart management, and payment...
+                </p> -->
+                <!-- <div class="project-tech-stack">
+                    <span class="tech-tag">HTML</span>
+                    <span class="tech-tag">CSS</span>
+                    <span class="tech-tag">JS</span>
+                    <span class="tech-tag">Stripe</span>
+                    <span class="tech-tag">PHP</span>
+                    <span class="tech-tag">SQL</span>
+                </div> -->
+                <div class="button-group">
+                    <!-- <a href="" class="view-case-study-btn">Case Study</a> -->
+                    <a href="https://solankihetal-coder.github.io/Table-Generator/" class="view-project-btn">Live <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <div class="project-card" data-category="web">
+                <div class="project-image-wrapper">
+                    <img src="Hets-thread.svg" alt="E-Commerce Platform" class="project-thumbnail">
+                    <span class="project-category-tag web">web</span>
+                </div>
+                <h3 class="project-title">Fashion Designing Tut</h3>
+                <!-- <p class="project-description">
+                    A fashion designing tutorial platform built with html, css, and js, featuring advanced
+                    filtering...
+                </p> -->
+                <!-- <div class="project-tech-stack">
+                    <span class="tech-tag">HTML</span>
+                    <span class="tech-tag">CSS</span>
+                    <span class="tech-tag">JS</span>
+                </div> -->
+                <div class="button-group">
+                    <!-- <a href="" class="view-case-study-btn">Case Study</a> -->
+                    <a href="https://solankihetal-coder.github.io/Table-Generator/" class="view-project-btn">Live <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <div class="project-card" data-category="web">
+                <div class="project-image-wrapper">
+                    <img src="kuromi-melody.svg" alt="E-Commerce Platform" class="project-thumbnail">
+                    <span class="project-category-tag web">web</span>
+                </div>
+                <h3 class="project-title">Square, Cube & Sqrt calc</h3>
+                <!-- <p class="project-description">
+                    A cube, square and root calculator...
+                </p> -->
+                <!-- <div class="project-tech-stack">
+                    <span class="tech-tag">HTML</span>
+                    <span class="tech-tag">CSS</span>
+                    <span class="tech-tag">JS</span>
+                </div> -->
+                <div class="button-group">
+                    <!-- <a href="" class="view-case-study-btn">Case Study</a> -->
+                    <a href="https://solankihetal-coder.github.io/Table-Generator/" class="view-project-btn">Live <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <div class="project-card" data-category="mobile">
+                <div class="project-image-wrapper">
+                    <img src="retro calculator.svg" alt="Task Management App" class="project-thumbnail">
+                    <span class="project-category-tag mobile">mobile</span>
+                </div>
+                <h3 class="project-title">Retro Calculator</h3>
+                <!-- <p class="project-description">
+                    A simple calculator...
+                </p> -->
+                <!-- <div class="project-tech-stack">
+                    <span class="tech-tag">React Native</span>
+                    <span class="tech-tag">Firebase</span>
+                    <span class="tech-tag">Redux</span>
+                </div> -->
+                <div class="button-group">
+                    <!-- <a href="" class="view-case-study-btn">Case Study</a> -->
+                    <a href="https://solankihetal-coder.github.io/Retro-Calculator/calculator.html" class="view-project-btn">Live <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <div class="project-card" data-category="mobile">
+                <div class="project-image-wrapper">
+                    <img src="table-generator.svg" alt="Task Management App" class="project-thumbnail">
+                    <span class="project-category-tag mobile">mobile</span>
+                </div>
+                <h3 class="project-title">Table Generator</h3>
+                <!-- <p class="project-description">
+                    A table generator, infinite numbers...
+                </p> -->
+                <!-- <div class="project-tech-stack">
+                    <span class="tech-tag">React Native</span>
+                    <span class="tech-tag">Firebase</span>
+                    <span class="tech-tag">Redux</span>
+                </div> -->
+                <div class="button-group">
+                    <!-- <a href="" class="view-case-study-btn">Case Study</a> -->
+                    <a href="https://solankihetal-coder.github.io/Table-Generator/" class="view-project-btn">Live <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <div class="project-card" data-category="design">
+                <div class="project-image-wrapper">
+                    <img src="FashionFly.svg" alt="Portfolio Website" class="project-thumbnail">
+                    <span class="project-category-tag design">design</span>
+                </div>
+                <h3 class="project-title">Fashion Fly</h3>
+                <!-- <p class="project-description">
+                    Creative portfolio website showcasing photography and design work with smooth
+                    animations and responsive layout.
+                </p> -->
+                <!-- <div class="project-tech-stack">
+                    <span class="tech-tag">React</span>
+                    <span class="tech-tag">GSAP</span>
+                    <span class="tech-tag">Tailwind CSS</span>
+                </div> -->
+                <div class="button-group">
+                    <!-- <a href="" class="view-case-study-btn">Case Study</a> -->
+                    <a href="https://solankihetal-coder.github.io/Table-Generator/" class="view-project-btn">Live <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <div class="project-card" data-category="design">
+                <div class="project-image-wrapper">
+                    <img src="vintage-vogue.svg" alt="Portfolio Website" class="project-thumbnail">
+                    <span class="project-category-tag design">design</span>
+                </div>
+                <h3 class="project-title">Vintage Vogue</h3>
+                <!-- <p class="project-description">
+                    Creative portfolio website showcasing photography and design work with smooth
+                    animations and responsive layout.
+                </p> -->
+                <!-- <div class="project-tech-stack">
+                    <span class="tech-tag">React</span>
+                    <span class="tech-tag">GSAP</span>
+                    <span class="tech-tag">Tailwind CSS</span>
+                </div> -->
+                <div class="button-group">
+                    <!-- <a href="" class="view-case-study-btn">Case Study</a> -->
+                    <a href="https://solankihetal-coder.github.io/Table-Generator/" class="view-project-btn">Live <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="certificate" class="certificate-section">
+  <h2 class="section-title">My Certification</h2>
+  <p class="section-description">
+    A showcase of my certification spanning.
+  </p>
+
+  <div class="certificate-carousel">
+    <div class="carousel-track-landing">
+      <div class="certificate-card"><img src="SQLL-certificate.jpeg" alt="SQL"></div>
+      <div class="certificate-card"><img src="angular-certicate.jpeg" alt="ANGULAR"></div>
+      <div class="certificate-card"><img src="prompt-engineering-certificate.jpg" alt="Prompt Engineering"></div>
+      <div class="certificate-card"><img src="c-certificate.jpeg" alt="C"></div>
+      <div class="certificate-card"><img src="html-certificate.jpeg" alt="HTML"></div>
+      <div class="certificate-card"><img src="write-with-AI-certificate.jpeg" alt="Write with AI"></div>
+      <div class="certificate-card"><img src="python-certficate.jpeg" alt="PYTHON"></div>
+      <div class="certificate-card"><img src="ML-certificate.jpeg" alt="MACHINE LEARNING"></div>
+      <div class="certificate-card"><img src="big-data-computing-certificate.jpeg" alt="BIG DATA COMPUTING"></div>
+
+      <!-- Duplicate set for infinite effect -->
+      <div class="certificate-card"><img src="SQLL-certificate.jpeg" alt="SQL"></div>
+      <div class="certificate-card"><img src="angular-certicate.jpeg" alt="ANGULAR"></div>
+      <div class="certificate-card"><img src="prompt-engineering-certificate.jpg" alt="Prompt Engineering"></div>
+      <div class="certificate-card"><img src="c-certificate.jpeg" alt="C"></div>
+      <div class="certificate-card"><img src="html-certificate.jpeg" alt="HTML"></div>
+      <div class="certificate-card"><img src="write-with-AI-certificate.jpeg" alt="Write with AI"></div>
+      <div class="certificate-card"><img src="python-certficate.jpeg" alt="PYTHON"></div>
+      <div class="certificate-card"><img src="ML-certificate.jpeg" alt="MACHINE LEARNING"></div>
+      <div class="certificate-card"><img src="big-data-computing-certificate.jpeg" alt="BIG DATA COMPUTING"></div>
+    </div>
+  </div>
+</section>
+
+
+
+    <section id="contact" class="contact-section">
+        <h2 class="section-title">Let's Talk</h2>
+        <!-- <p class="section-description">
+            I am always open to new opportunities and collaborations. Feel free to reach out to me!
+        </p> -->
+        <div class="contact-grid">
+            <div class="contact-form-container">
+                <form action="#" method="POST" class="contact-form">
+                    <div class="form-group">
+                        <label for="name">Your Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Your Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message me</label>
+                        <textarea id="message" name="message" rows="5" maxlength="500"></textarea>
+                        <div class="char-count">
+                            <span id="current-char">0</span>/500 characters
+                        </div>
+                    </div>
+                    <button type="submit" class="submit-btn">
+                        Send Message <i class="fas fa-paper-plane"></i>
+                    </button>
+                </form>
+            </div>
+            <div class="contact-info-container">
+                <div class="info-card social-card">
+                    <!-- <h3>Let's Connect</h3> -->
+                    <p>Follow me on social media for updates on my latest projects and design insights.</p>
+                    <div class="social-links-lg">
+                        <a href="https://www.linkedin.com/in/hetal-solanki22"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://github.com/solankihetal-coder"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="fab fa-dribbble"></i></a>
+                        <a href="https://www.behance.net/hetalsolanki11"><i class="fab fa-behance"></i></a>
+                    </div>
+                </div>
+                <!-- <div class="info-card response-card">
+                    <div class="info-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h4>Quick Response</h4>
+                    <p>I typically respond to all inquiries within 24 hours. Looking forward to hearing from you!</p>
+                </div> -->
+            <div class="info-card contact-card">
+        <div class="card-icon-container">
+            <i class="fas fa-envelope"></i>
+        </div>
+            <div class="card-text">
+            <h4>Email</h4>
+            <a href="mailto:hetaljsolanki01@gmail.com" class="info-link">hetaljsolanki01@gmail.com</a>
+            <p>Send me an email anytime!</p>
+        </div>
+    </div>
+    <!-- <div class="info-card contact-card">
+        <div class="card-icon-container">
+            <i class="fas fa-map-marker-alt"></i>
+        </div>
+        <div class="card-text">
+            <h4>Location</h4>
+            <span class="info-link">San Francisco, CA</span>
+            <p>Available for remote work</p>
+        </div>
+    </div> -->
+        </div>
+    </section>
+
+    <footer class="main-footer">
+        <div class="footer-container">
+            <div class="footer-column footer-about">
+                <h3>Hetal Solanki</h3>
+                <p>
+                    Frontend Developer & UI/UX Designer passionate about creating beautiful and functional digital experiences.
+                </p>
+                <div class="social-links">
+                    <a href="https://www.linkedin.com/in/hetal-solanki22"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://github.com/solankihetal-coder"><i class="fab fa-github"></i></a>
+                    <a href="#"><i class="fab fa-dribbble"></i></a>
+                    <a href="https://www.behance.net/hetalsolanki11"><i class="fab fa-behance"></i></a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#skills">Skills</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Get In Touch</h3>
+                <ul class="footer-contact">
+                    <li><a href="mailto:hetaljsolanki01@gmail.com"><i class="fas fa-envelope"></i> hetaljsolanki01@gmail.com</a></li>
+                    <li><a href="#"><i class="fas fa-map-marker-alt"></i> Mumbai, Maharashtra</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Hetal Solanki. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
+    
+    <script src="script.js"></script>
+    <!-- Swiper JS -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+</body>
+</html>
