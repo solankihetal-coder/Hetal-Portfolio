@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UI/UX Designer Resume</title>
+  <style>
+    /* ======== Base Reset ======== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #ffffff;
+      color: #000000;
+      line-height: 1.6;
+      display: flex;
+      justify-content: center;
+      padding: 40px;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Reveal animation */
+    .reveal{
+      opacity:0;
+      transform:translateY(40px) scale(.98);
+      transition:
+      opacity var(--duration-medium) var(--ease-out-expo),
+      transform var(--duration-medium) var(--ease-out-expo);
+    }
+
+    .reveal.active{
+      opacity:1;
+      transform:translateY(0) scale(1);
+    }
+
+    /* ======== Go Back Button ======== */
+    .go-back {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      font-size: 18px;
+      background: transparent;
+      color: #000;
+      border: 1px solid #000;
+      border-radius: 6px;
+      padding: 8px 14px;
+      cursor: pointer;
+      transition: all 0.3s;
+      z-index: 1000;
+    }
+
+    .go-back:hover {
+      background: #000;
+      color: #fff;
+    }
+
+    /* ======== Resume Container ======== */
+    .resume {
+      background: #f5f5f5;
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      max-width: 1000px;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+      position: relative;
+      z-index: 2;
+    }
+
+    /* ======== Left Column ======== */
+    .left {
+      background: #ffffff;
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .contact {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      background: #f5f5f5;
+      padding: 10px 15px;
+      border-radius: 50px;
+      width: fit-content;
+      border: 1px solid #000;
+    }
+
+    .contact span {
+      font-size: 15px;
+    }
+
+    .about p {
+      margin-top: 10px;
+      font-size: 16px;
+      color: #333;
+    }
+
+    .section-title {
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 10px;
+      position: relative;
+      color: #000;
+    }
+
+    .section-title::after {
+      content: "";
+      display: block;
+      width: 60px;
+      height: 2px;
+      background: #000;
+      margin-top: 5px;
+    }
+
+    .experience-item {
+      margin-bottom: 25px;
+    }
+
+    .experience-item h4 {
+      font-size: 16px;
+      margin-bottom: 5px;
+      color: #000;
+    }
+
+    .experience-item ul {
+      margin-left: 18px;
+      list-style: disc;
+      font-size: 16px;
+      color: #444;
+    }
+
+    .education {
+      font-size: 16px;
+      color: #222;
+      margin-top: -10px;
+    }
+
+    /* ======== Right Column ======== */
+    .right {
+      background: #f5f5f5;
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      z-index: 2;
+    }
+
+    .profile-pic {
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #000;
+    }
+
+    .name {
+      text-align: center;
+    }
+
+    .name h1 {
+      font-size: 28px;
+      margin-bottom: 5px;
+      color: #000;
+    }
+
+    .name p {
+      font-size: 16px;
+      color: #333;
+    }
+
+    /* ======== Download Resume Button ======== */
+    .download-btn {
+      display: inline-block;
+      background: #000;
+      color: #fff;
+      text-decoration: none;
+      padding: 10px 20px;
+      border-radius: 30px;
+      font-size: 16px;
+      transition: all 0.3s;
+      border: 1px solid #000;
+      display: flex;
+    justify-content: center; /* Center the button container */
+    }
+
+    .download-btn:hover {
+      background: #fff;
+      color: #000;
+    }
+
+    .skills {
+      width: 100%;
+    }
+
+    /* .skills .section-title {
+      text-align: center;
+    } */
+
+    .skill-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 15px;
+    }
+
+    .skill-item {
+      text-align: center;
+      padding: 5px 0;
+      border: 1px solid #000;
+      border-radius: 30px;
+      color: #000;
+      font-size: 16px;
+      background: #fff;
+      /* transition: transform 0.6s, box-shadow 0.3s; */
+    }
+
+    .skill-item:hover{
+        /* transform: translateY(-5px); */
+        background-color: #222;
+        color: #fff;
+    }
+
+    /* ======== Responsive ======== */
+    @media (max-width: 800px) {
+      .resume {
+        grid-template-columns: 1fr;
+      }
+      .right {
+        order: -1;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Go Back Button -->
+  <button class="go-back" onclick="history.back()">← Go Back</button>
+  <div class="resume">
+    <!-- LEFT COLUMN -->
+    <div class="left">
+      <div class="contact">
+        <!-- <span>📞 +123-456-7890</span> -->
+        <span>📧 hetaljsolanki01@gmail.com</span>
+      </div>
+
+      <div class="about">
+        <div class="section-title">ABOUT ME</div>
+        <p>Creative Frontend Developer and UI/UX Designer skilled in building responsive, 
+            user-friendly interfaces. Experienced in turning ideas into clean, modern designs that 
+            blend aesthetics with functionality to deliver seamless user experiences.</p>
+      </div>
+
+      <div class="work">
+        <div class="section-title">WORK EXPERIENCE</div>
+
+        <div class="experience-item">
+          <h4>UI/UX Designer<br><small>Praesantia Itech Solution Pvt. Ltd. (2025 - now)</small></h4>
+          <ul>
+            <li>Developing and maintaining responsive, high-performance web applications, 
+                ensuring cross-browser compatibility and adherence to corporate design standards.</li>
+            <li>Collaborating with frontend developers and product managers to deliver scalable
+                solutions that improved user engagement and reduced page load times.</li>
+          </ul>
+        </div>
+
+        <div class="experience-item">
+          <h4>Software Sales Specialist - Intern<br><small>Snails Consultancy Pvt. Ltd. (Apr 2024 - May 2024)</small></h4>
+          <ul>
+            <li>Empowering real estate brokers with cutting-edge applications to secure more projects and maximize commission rates.</li>
+          </ul>
+        </div>
+
+        <div class="experience-item">
+            <h4>Sales Executive<br><small>Fragrance & Aroma (Eastland) Pvt. Ltd. (2022 - 2023)</small></h4>
+          <ul>
+            <li>Dealers of Export Entitlements/Duty Credit Scripts.</li>
+            <li>Dealers & Importers of Engineering Plastics & Products.</li>
+          </ul>
+          <br>
+          <h4>Service Consultant<br><small>Fragrance & Aroma (Eastland) Pvt. Ltd. (2021 - 2022)</small></h4>
+          <ul>
+            <li>Strategy planning for maximisation of export incentives.</li>
+            <li>Resolving dgft & icegate issues.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="education">
+        <div class="section-title">EDUCATION</div>
+        <p><b>Bachelor of Information & Technology</b><br>
+        Thakur Ramnarayan College of Arts & Commerce (Mumbai University)<br>
+        2022 - 2025 <br>
+        CGPA: 9.5/10
+      </p>
+      </div>
+      <a href="UI_UX_Designer_Hetal_Solanki.pdf" download class="download-btn">Download Resume 📥</a>
+    </div>
+
+    <!-- RIGHT COLUMN -->
+    <div class="right">
+      <img src="pfp_without_bg.png" alt="profile" class="profile-pic">
+
+      <div class="name">
+        <h1>Hetal Solanki</h1>
+        <p>FRONTEND DEVELOPER</p>
+        <p>UI/UX DESIGNER</p>
+      </div>
+
+      <div class="skills">
+        <div class="section-title">TOOLS & TECHNOLOGIES</div>
+        <div class="skill-list">
+          <div class="skill-item">Framer/ Lovable/ Emergent</div>
+          <div class="skill-item">Figma / Miro/ Sketch</div>
+          <div class="skill-item">VS code / Trae</div>
+          <div class="skill-item">Git / GitHub</div>
+          <div class="skill-item">HTML / CSS / JS</div>
+        </div>
+
+        <div class="skills">
+          <div class="section-title">SKILL</div>
+          <div class="skill-list">
+            <div class="skill-item">UI Design</div>
+            <div class="skill-item">UX Research</div>
+            <div class="skill-item">Wireframing</div>
+            <div class="skill-item">Competitive Analysis</div>
+            <div class="skill-item">User Interview/ Persona</div>
+            <div class="skill-item">Prototyping</div>
+            <div class="skill-item">Web Development</div>
+            <div class="skill-item">Usability Testing</div>
+            <div class="skill-item">User-Centric Mindset</div>
+            <div class="skill-item">Responsive Design</div>
+            <div class="skill-item">Continuous Learning</div>
+          </div>
+        </div> 
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
