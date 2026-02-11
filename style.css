@@ -216,7 +216,7 @@ body.dark-theme {
   font-weight:800;
 }
 .nav-link, .contact-form-container, .about-container, .project-grid, .project-filters, .hero-content, .experience-list, .skills-grid, .stats-grid, .software-grid, .software-pills, .hobbies-grid, .footer {
-    font-family: ('inter', sans-serif);
+    font-family: ('Poppins', sans-serif);
 }
 /* =================================================================
    5. HERO SECTION
@@ -1624,5 +1624,6 @@ body.dark-theme {
         margin: 12px;
         }
 }
+
 
 
