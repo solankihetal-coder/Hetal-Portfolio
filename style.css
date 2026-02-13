@@ -156,7 +156,7 @@ body.dark-theme {
 
 .btn {
     padding: 0.8rem 2rem;
-    border-radius: 18px;
+    border-radius: 22px;
     font-weight: 600;
     text-decoration: none;
     transition: transform 0.2s, background-color 0.2s;
@@ -227,7 +227,7 @@ body.dark-theme {
     justify-content: space-between;
     align-items: center;
     max-width: 1400px;
-    margin: 3rem auto;
+    margin: 2rem auto;
     padding: 5rem;
 }
 
@@ -239,9 +239,10 @@ body.dark-theme {
 .main-heading {
     margin: 0;
     font-size: 4rem;
-    /* font-weight: 700; */
+    font-weight: 700;
     line-height: 1.1;
-    color: #2d2d2d;
+    color: #3d3d3d;
+    font-family: 'Playfair Display', serif;
 }
 
 .hand{
@@ -286,16 +287,16 @@ body.dark-theme {
 }
 
 .name{
-  font-size: 2.5rem;
+  font-size: 3rem;
   font-style: italic;
-  font-weight: 700;
-  /* color: #5e503f; */
+  font-weight:900;
+  /* color: #20b1c4; */
 }
 
 .description {
     max-width: 450px;
-    margin-top: 1.5rem;
-    font-size: 1rem;
+    margin-top: 2.5rem;
+    font-size: 1.1rem;
     line-height: 1.6;
 }
 
@@ -365,7 +366,7 @@ body.dark-theme {
     white-space: nowrap;
     overflow: hidden;
     border-right: 2px solid #000;
-    margin-top: 2rem;
+    margin-top: 2.2rem;
     height: 30px;
     vertical-align: top;
     animation: cursor-blink 0.75s step-end infinite;
@@ -520,8 +521,9 @@ body.dark-theme {
 .project-card {
     display: flex;
     flex-direction: column;
+    width: 550px;
     background: var(--secondary-color);
-    border-radius: 10px;
+    border-radius: 18px;
     box-shadow: 0 20px 40px rgba(0,0,0,0.08);
     overflow: hidden;
     text-align: left;
@@ -739,7 +741,7 @@ body.dark-theme {
 .certificate-card {
     flex-shrink: 0;
     width: 400px;
-    border-radius: 8px;
+    border-radius: 18px;
     overflow: hidden;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     transition: transform 0.3s, box-shadow 0.3s;
@@ -1019,7 +1021,7 @@ body.dark-theme {
 /* Contact Form */
 .contact-form-container {
     background-color: var(--secondary-color);
-    border-radius: 10px;
+    border-radius: 18px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
     padding: 3rem;
     text-align: left;
@@ -1073,7 +1075,7 @@ body.dark-theme {
     color: var(--secondary-color);
     background-color: #000;
     border: none;
-    border-radius: 5px;
+    border-radius: 10px;
     cursor: pointer;
     /* box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); */
     transition: transform 0.2s;
@@ -1338,6 +1340,8 @@ body.dark-theme {
     .about-stats {
         justify-items: center;
     }
+    .name{
+      font-size:2rem;}
 }
 
 /* Mobile (≤768px) */
@@ -1435,7 +1439,7 @@ body.dark-theme {
     }
 
     .description {
-        font-size:1.2rem;
+        font-size: 0.82rem;
     }
 
     .circle-image-wrapper {
@@ -1491,6 +1495,8 @@ body.dark-theme {
       position:sticky;
       top: 120px; /* distance from top while stacking */
       margin-bottom: 40px;
+
+      width: auto; /* allow full width on mobile */
 
       transform-origin:center top;
 
