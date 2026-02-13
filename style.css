@@ -1819,7 +1819,7 @@ body.dark-theme {
     }
 
     .certificate-card {
-        flex: 0 0 calc(70% - 10px); /* Show more than 2 at once with slight overlap/clipping */
+        flex: 0 0 calc(75% - 10px); /* Show more than 2 at once with slight overlap/clipping */
     }
 
     .software-grid{
@@ -1829,3 +1829,4 @@ body.dark-theme {
         }
 
 }
+
