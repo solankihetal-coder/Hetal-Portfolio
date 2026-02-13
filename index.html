@@ -1,20 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- =====================================================
+       META TAGS & CONFIGURATION
+  ===================================================== -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Hetal Solanki - UI/UX Designer & Frontend Developer. Turning ideas into interactive reality through clean code and thoughtful design." />
+  <meta name="keywords" content="UI/UX Designer, Frontend Developer, Web Development, Portfolio, Hetal Solanki" />
+  <meta name="author" content="Hetal Solanki" />
+  
+  <!-- Open Graph / Social Media Meta Tags -->
+  <meta property="og:title" content="Hetal Solanki - Frontend Developer" />
+  <meta property="og:description" content="Turning ideas into interactive reality through clean code and thoughtful design." />
+  <meta property="og:type" content="website" />
+  
   <title>Hetal Solanki - Frontend Developer</title>
+  
+  <!-- FAVICON -->
   <link rel="icon" type="image/x-icon" href="hetal-logo-all-white.svg" />
+  
+  <!-- STYLESHEETS-->
   <link rel="stylesheet" href="style.css"/>
+
+    <!-- =====================================================
+       EXTERNAL FONTS & LIBRARIES
+  ===================================================== -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  
+  <!-- Font Awesome Icons -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet"/>
+  
+  <!-- Swiper Carousel -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
 </head>
 
 <body>
-  <!-- Navbar Start -->
+ <!-- =====================================================
+    HEADER / NAVIGATION
+ ===================================================== -->
   <header class="navbar">
     <!-- Hamburger Button (mobile) -->
     <img src="hetal-logo-all-black.svg" alt="" style="width: 40px;">
@@ -41,10 +67,12 @@
   </header>
   <!-- Navbar End -->
 
-  <!-- Hero Section -->
+<!-- =====================================================
+    HERO SECTION
+===================================================== -->
   <main class="hero-section">
     <div class="hero-content">
-      <h1 class="main-heading">Hola!👋 I'm <br>
+      <h1 class="main-heading">Hola! <img src="hand_with_smile.png" alt="hand_image" class="hand"> I'm <br>
         <span class="name">Hetal Solanki</span></h1>
       <p class="typing-text"></p>
       <p class="description">
@@ -55,7 +83,8 @@
         <a href="#contact" class="btn btn-primary">
             <i class="fa-solid fa-location-arrow"></i> &nbsp; Get In Touch</a>
       </div>
-
+        
+      <!-- Social Links -->
       <div class="social-links">
         <a href="https://github.com/solankihetal-coder"><i class="fab fa-github"></i></a>
         <a href="https://www.linkedin.com/in/hetal-solanki22"><i class="fab fa-linkedin"></i></a>
@@ -75,11 +104,14 @@
       </div>
     </div>
   </main>
+    <!-- End Hero Section -->
 
     <div class="scroll-indicator">
         <i class="fas fa-arrow-down"></i>
     </div>
-
+    <!-- =====================================================
+         PROJECTS SECTION
+    ===================================================== -->
 
 <section id="projects" class="projects-section">
         <p class="section-tag">( Work )</p>
@@ -244,7 +276,11 @@
         </div>
         </div>
 </section>
+   <!-- End Projects Section -->
 
+    <!-- =====================================================
+         EXPERIENCE SECTION
+    ===================================================== -->
 
   <section id="experience" class="experience-section">
 
@@ -259,14 +295,14 @@
                 <div>
                 <h3>UX/UI Designer</h3>
                 <p class="company-name">
-                    FirstCry ( BrainBees Solutions Ltd ) – Middle East
+                    BrainBees Solutions Ltd – Middle East
                 </p>
                 </div>
             </div>
 
             <div class="meta">
                 <p>May 2024 – Present · Remote</p>
-                <span>Gurgaon, India</span>
+                <span class="location">Gurgaon, India</span>
             </div>
             </div>
 
@@ -284,7 +320,7 @@
 
             <div class="meta">
                 <p>April 2024 – May 2024 · Remote</p>
-                <span>Gurgaon, India</span>
+                <span class="location">Gurgaon, India</span>
             </div>
             </div>
 
@@ -300,19 +336,25 @@
 
             <div class="meta">
                 <p>Sept 2023 – April 2024 · Remote</p>
-                <span>Gurgaon, India</span>
+                <span class="location">Gurgaon, India</span>
             </div>
             </div>
 
         </div>
 
 </section>
+    <!-- End Experience Section -->
 
+    <!-- =====================================================
+         SKILLS SECTION
+    ===================================================== -->
 <section id="skills" class="skills-section">
 
   <!-- Skills -->
   <p class="section-tag">( Skills )</p>
   <h2 class="section-title"> <em>My Design</em> <strong>Arsenal</strong></h2>
+
+  <!-- Big Software Tools Grid -->
 
   <div class="skills-grid">
     <span>User Interview</span>
@@ -333,7 +375,7 @@
     <span>Mentoring</span>
   </div>
 
-  <!-- Stats -->
+    <!-- Software Pills/Tags -->
   <p class="section-tag">( Statistics )</p>
   <h2 class="section-title"> <em>By The</em> <strong>Numbers</strong></h2>
 
@@ -349,7 +391,11 @@
     </div>
   </div>
 </section>
+    <!-- End Skills Section -->
 
+    <!-- =====================================================
+         SOFTWARE/TOOLS SECTION
+    ===================================================== -->
 
 <section id="skills" class="software-section">
         <p class="section-tag">( Skills )</p>
@@ -381,20 +427,24 @@
   </div>
 
         <div class="software-pills">
-            <span><img src="chat-gpt.png" alt="chatgpt">ChatGPT</span>
-            <span><img src="css.png" alt="css">CSS</span>
-            <span><img src="midjourney.png" alt="midjourney">Midjourney</span>
-            <span><img src="figma.png" alt="figma">Figma</span>
-            <span><img src="framer-logo.png" alt="framer">Framer</span>
-            <span><img src="github.png" alt="github">GitHub</span>
-            <span><img src="javascript.png" alt="javascript">JavaScript</span>
-            <span><img src="logos_miro-icon.png" alt="miro">Miro</span>
-            <span><img src="vscode.png" alt="vscode">VS Code</span>
-            <span><img src="sketch.png" alt="sketch">Sketch</span>
-            <span><img src="material-icon-theme_html.png" alt="html">HTML</span>
+            <span><img src="/software/chat-gpt.png" alt="chatgpt">ChatGPT</span>
+            <span><img src="/software/css.png" alt="css">CSS</span>
+            <span><img src="/software/midjourney.png" alt="midjourney">Midjourney</span>
+            <span><img src="/software/figma.png" alt="figma">Figma</span>
+            <span><img src="/software/framer-logo.png" alt="framer">Framer</span>
+            <span><img src="/software/github.png" alt="github">GitHub</span>
+            <span><img src="/software/javascript.png" alt="javascript">JavaScript</span>
+            <span><img src="/software/logos_miro-icon.png" alt="miro">Miro</span>
+            <span><img src="/software/vscode.png" alt="vscode">VS Code</span>
+            <span><img src="/software/sketch.png" alt="sketch">Sketch</span>
+            <span><img src="/software/material-icon-theme_html.png" alt="html">HTML</span>
         </div>
     </section>
+    <!-- End Software Section -->
 
+    <!-- =====================================================
+         CERTIFICATES SECTION
+    ===================================================== -->   
 
 <section id="certificate" class="certificate-section">
         <p class="section-tag">( Certifications )</p>
@@ -425,9 +475,11 @@
     </div>
   </div>
 </section>
+    <!-- End Certificates Section -->
 
-
-<!-- ================= HOBBIES SECTION ================= -->
+    <!-- =====================================================
+         HOBBIES SECTION
+    ===================================================== -->
 <section id="hobbies" class="hobbies-section">
   <p class="section-tag">( Hobbies )</p>
     <h2 class="section-title"><em>Beyond </em> <strong>Design</strong></h2>
@@ -456,9 +508,11 @@
 
   </div>
 </section>
+    <!-- End Hobbies Section -->
 
-
-
+    <!-- =====================================================
+         CONTACT SECTION
+    ===================================================== -->   
     <section id="contact" class="contact-section">
         <p class="section-tag">( Contact )</p>
         <h2 class="section-title"><em>Let's</em> <strong>Talk</strong></h2>
@@ -501,13 +555,10 @@
 
         <p class="footer-copy">© Copyright 2025</p>
     </footer>
-</body>
-</html>
     
     <script src="script.js"></script>
     <!-- Swiper JS -->
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
 </body>
-
 </html>
