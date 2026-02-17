@@ -700,22 +700,6 @@ body.dark-theme {
 
 }
 
-/* =========================
-   DESKTOP
-========================= */
-/* @media(min-width:768px){
-
-  .experience-card{
-    flex-direction:row;
-    justify-content:space-between;
-    align-items:center;
-  }
-
-  .meta{
-    text-align:right;
-  }
-} */
-
 /* =================================================================
    8. CERTIFICATES SECTION
    ================================================================= */
@@ -731,20 +715,20 @@ body.dark-theme {
 .certificate-carousel {
     width: 100%;
     overflow: hidden;
-    padding: 2rem;
+    padding: 2rem 0;
 }
 
 .carousel-track-landing {
     display: flex;
     gap: 1rem;
-    animation: scrollCertificate 25s linear infinite;
+    width: max-content;      /* ✅ lets track grow as wide as all cards */
     will-change: transform;
 }
 
 .certificate-card {
     flex-shrink: 0;
-    width: 400px;
-    border-radius: 18px;
+    width: clamp(220px, 28vw, 400px); /* ✅ responsive: shrinks on mobile */
+    border-radius: 24px;
     overflow: hidden;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s, box-shadow 0.3s;
@@ -752,6 +736,7 @@ body.dark-theme {
 
 .certificate-card:hover {
     transform: translateY(-8px);
+    animation-play-state: paused;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
 }
 
@@ -760,16 +745,6 @@ body.dark-theme {
     height: 100%;
     object-fit: cover;
     display: block;
-}
-
-/* Keyframes: scroll the total width of original cards (adjust 200% based on content repetition) */
-@keyframes scrollCertificate {
-    0% {
-        transform: translateX(0);
-    }
-    100% {
-        transform: translateX(-200%);
-    }
 }
 
 /* ========================================== 
@@ -1583,7 +1558,12 @@ body.dark-theme {
         grid-template-columns:1fr;
         margin: 12px;
     }
-
+    .certificate-section  { 
+        padding: 3rem 1rem; 
+    }
+    .certificate-card img { 
+        height: 180px; 
+    }
 }
 
 /* Small Mobile (≤640px) - Certificate Section Specific */
@@ -1777,7 +1757,7 @@ body.dark-theme {
 
     .about-stats{
     display:grid;
-    grid-template-columns:repeat(3,1fr);
+    grid-template-columns:repeat(2, 1fr);
     gap:.8rem;
   }
   .about-stats .stat h4, span{
@@ -1789,7 +1769,7 @@ body.dark-theme {
 
   .hobbies-grid{
     display:grid;
-    grid-template-columns:repeat(2,1fr);
+    grid-template-columns:repeat(2, 1fr);
     gap:.8rem;
   }
   .hobbies-grid .hobby-card{
@@ -1822,22 +1802,21 @@ body.dark-theme {
 
     /* Certificates */
     .certificate-section {
-        padding: 3rem 1rem;
+        padding: 5rem 1rem;
     }
 
     .carousel-track-landing {
         animation: scrollCertificate 20s linear infinite; /* Adjusted speed */
     }
 
-    .certificate-card {
-        flex: 0 0 calc(70% - 10px); /* Show more than 2 at once with slight overlap/clipping */
+    .certificate-card img { 
+        height: 150px; 
     }
 
     .software-grid{
         display:grid;
         grid-template-columns:1fr;
         margin: 12px;
-        }
+    }
 
 }
-
