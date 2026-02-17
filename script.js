@@ -405,7 +405,7 @@ const TiltEffect = {
     card.style.transform = 
       'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0) scale(1.02)';
   }
-};
+};  
 
 // =====================================================
 // STACKED CARD SCROLL EFFECT
@@ -440,6 +440,88 @@ const StackedCardScroll = {
     card.style.opacity = 1;
   }
 };
+
+/* ─────────────────────────────────────────────────────────────────
+     KEY FIX 3 – Dynamic duration calibrated to screen size
+     Target speed: 120 px/s on desktop, scales down on mobile so the
+     animation never feels rushed on small screens or sluggish on wide ones.
+  ───────────────────────────────────────────────────────────────── */
+(function () {
+  const carousel = document.getElementById('certCarousel');
+  const track    = document.getElementById('certTrack');
+
+  let offset    = 0;
+  let halfWidth = 0;
+  let speed     = 0;
+  let lastTime  = null;
+  let rafId     = null;
+  let isPaused  = false;
+
+  /* ── Pause on hover ──────────────────────────────────────────────── */
+  carousel.addEventListener('mouseenter', () => { isPaused = true;  });
+  carousel.addEventListener('mouseleave', () => { isPaused = false; });
+
+  /* ── Measure real pixel width of ONE card set ───────────────────── */
+  function measure() {
+    halfWidth = track.scrollWidth / 2;
+  }
+
+  /* ── Speed by viewport (px / ms) ───────────────────────────────── */
+  function updateSpeed() {
+    const w = window.innerWidth;
+    let pxPerSec;
+    if      (w <= 480)  pxPerSec = 90;
+    else if (w <= 640)  pxPerSec = 100;
+    else if (w <= 768)  pxPerSec = 100;
+    else if (w <= 900) pxPerSec = 110;
+    else if (w <= 1024) pxPerSec = 110;
+    else                pxPerSec = 120;
+    speed = pxPerSec / 1000;
+  }
+
+  /* ── rAF loop ───────────────────────────────────────────────────── */
+  function tick(timestamp) {
+    if (lastTime === null) lastTime = timestamp;
+    const elapsed = Math.min(timestamp - lastTime, 100);
+    lastTime = timestamp;
+
+    if (!isPaused && halfWidth > 0) {
+      offset += speed * elapsed;
+      if (offset >= halfWidth) {
+        offset -= halfWidth;
+      }
+      track.style.transform = `translateX(${-offset}px)`;
+    }
+
+    rafId = requestAnimationFrame(tick);
+  }
+
+  /* ── Resize handler ─────────────────────────────────────────────── */
+  let resizeTimer;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => {
+      const prevHalf = halfWidth;
+      measure();
+      updateSpeed();
+      if (prevHalf > 0) offset = (offset / prevHalf) * halfWidth;
+      lastTime = null;
+    }, 150);
+  });
+
+  /* ── Boot ───────────────────────────────────────────────────────── */
+  function init() {
+    measure();
+    updateSpeed();
+    rafId = requestAnimationFrame(tick);
+  }
+
+  if (document.readyState === 'complete') {
+    init();
+  } else {
+    window.addEventListener('load', init);
+  }
+})();
 
 // =====================================================
 // APPLICATION INITIALIZATION
