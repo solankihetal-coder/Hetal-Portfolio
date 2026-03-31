@@ -572,11 +572,11 @@
   <h1>Kuromi's <span class="h1-pink">Chaos</span> Calculator</h1>
   <p class="cover-tagline">Squares, cubes &amp; roots — served with sarcasm. Built with love for a sister. 🖤🩷</p>
   <div class="cover-chips">
-    <span class="chip chip-v">Vanilla JS</span>
+    <!-- <span class="chip chip-v">Vanilla JS</span> -->
     <span class="chip chip-p">HTML / CSS</span>
     <span class="chip chip-g">Kuromi Theme</span>
     <span class="chip chip-y">My Melody Theme</span>
-    <span class="chip chip-r">History · Audio · Quiz</span>
+    <span class="chip chip-r">History · Quiz</span>
   </div>
 </div>
 
@@ -608,7 +608,7 @@
       <p class="story-quote">"She asked if I could make her a calculator that was actually cute — so I did."</p>
       <p>Every great project starts with a real problem. This one started with a sister who loves <strong style="color:#c4b5fd">Kuromi</strong> and <strong style="color:#f9a8d4">My Melody</strong> and kept struggling whenever she needed to quickly find the square, cube, or square root of a number — tools buried deep inside scientific calculators or plain-looking web apps that felt nothing like her personality.</p>
       <p>The ask was simple: build something that feels <em>hers</em>. A calculator designed around two of her favorite Sanrio characters, with a theme toggle so she can switch between Kuromi's dark mischief and My Melody's soft sweetness — and a personality, down to the sarcastic quotes in the result panel.</p>
-      <p>What started as a quick gift became a full <strong style="color:#c4b5fd">design + development project</strong> — covering math logic, DOM manipulation, audio integration, theme switching, and a history panel the developer calls the <em>"Mischief List."</em></p>
+      <p>What started as a quick gift became a full <strong style="color:#c4b5fd">design + development project</strong> — covering math logic, DOM manipulation, theme switching, and a history panel the developer calls the <em>"Mischief List."</em></p>
     </div>
   </section>
 
@@ -621,7 +621,6 @@
       <div class="stat-card"><div class="stat-emoji">✨</div><div class="stat-label">Themes</div><div class="stat-val pink">2 Modes</div></div>
       <div class="stat-card"><div class="stat-emoji">🧮</div><div class="stat-label">Operations</div><div class="stat-val">Square · Cube · Root</div></div>
       <div class="stat-card"><div class="stat-emoji">📜</div><div class="stat-label">History</div><div class="stat-val">Mischief List</div></div>
-      <div class="stat-card"><div class="stat-emoji">🎵</div><div class="stat-label">Audio</div><div class="stat-val pink">Kuromi Tone</div></div>
     </div>
     <p>Kuromi's Chaos Calculator is a <strong>single-page, front-end web application</strong> built with zero dependencies — pure HTML, CSS, and Vanilla JavaScript. It was designed from scratch to feel like a Sanrio product page, not a math tool. The user types any number, presses one of three operation buttons, and gets an instant result with a sarcastic in-character Kuromi quote. A dedicated history panel stores every calculation performed in the session.</p>
   </section>
@@ -654,11 +653,6 @@
         <span class="feat-emoji">📜</span>
         <h4>My Mischief List</h4>
         <p>A scrollable history panel that logs every calculation with its expression and result. Clearable with one click.</p>
-      </div>
-      <div class="feat-card">
-        <span class="feat-emoji">🎵</span>
-        <h4>Kuromi Tone</h4>
-        <p>A subtle sound plays on each calculation — a soft, character-appropriate audio cue using the Web Audio API.</p>
       </div>
       <div class="feat-card">
         <span class="feat-emoji">🌸</span>
@@ -733,7 +727,6 @@
       <div class="algo-step"><span class="a-num">4</span><div class="a-body"><h4>Format Result</h4><p>If result is irrational (non-integer root), display full precision. Round button optionally trims to 4 decimal places via <code>toFixed(4)</code>.</p></div></div>
       <div class="algo-step"><span class="a-num">5</span><div class="a-body"><h4>Display Result</h4><p>Inject the result string into the result panel DOM node. Select a random Kuromi quote from the quote pool and inject it below.</p></div></div>
       <div class="algo-step"><span class="a-num">6</span><div class="a-body"><h4>Log to History</h4><p>Push an entry object <code>{ expression, result, timestamp }</code> into the history array. Prepend a new list item to the Mischief List panel.</p></div></div>
-      <div class="algo-step"><span class="a-num">7</span><div class="a-body"><h4>Play Audio</h4><p>Trigger the Web Audio API tone — a short oscillator burst at character-appropriate frequency — then auto-stop after 150ms.</p></div></div>
     </div>
   </section>
 
@@ -791,10 +784,7 @@
   historyList.<span class="fn">prepend</span>(li)
 }
 
-<span class="cm">// ── Audio: Web Audio API tone ────────────────────────────────</span>
-
 <span class="kw">function</span> <span class="fn">playTone</span>() {
-  <span class="kw">const</span> ctx = <span class="kw">new</span> AudioContext()
   <span class="kw">const</span> osc = ctx.<span class="fn">createOscillator</span>()
   osc.frequency.value = <span class="num">520</span>          <span class="cm">// Kuromi: slightly eerie pitch</span>
   osc.type = <span class="str">'sine'</span>
@@ -895,10 +885,6 @@
         <h4>Seamless Theme Switching</h4>
         <p>Rebuilding theme logic with class toggles caused visual flashes. The solution was to use CSS <code>transition</code> on all color properties and switch via a single <code>data-theme</code> attribute, letting CSS handle the rest instantly.</p>
       </div>
-      <div class="ch-card ch-t">
-        <h4>Web Audio on User Gesture</h4>
-        <p>Browsers block audio without a user gesture. AudioContext was created <em>inside</em> the button click handler (not on page load), satisfying the browser autoplay policy without needing a separate user permission prompt.</p>
-      </div>
       <div class="ch-card ch-v">
         <h4>History Panel Performance</h4>
         <p>Appending many DOM nodes repeatedly degrades performance. Used <code>prepend()</code> instead of <code>appendChild()</code> so new entries appear at the top, and limited visible items via CSS <code>overflow-y: auto</code> with a max-height.</p>
@@ -937,7 +923,6 @@
           <tr><td>Kuromi Quote</td><td>Random string from pool</td><td>Below result</td><td><span class="tag tag-v">Personality</span></td></tr>
           <tr><td>History Entry</td><td>Expression + result row</td><td>Mischief List panel</td><td><span class="tag tag-g">Session</span></td></tr>
           <tr><td>Clipboard Copy</td><td>Plain text number</td><td>System clipboard</td><td><span class="tag tag-g">Implemented</span></td></tr>
-          <tr><td>Audio Tone</td><td>Web Audio oscillator</td><td>System speakers</td><td><span class="tag tag-p">On Compute</span></td></tr>
           <tr><td>Rounded Result</td><td><code>toFixed(4)</code></td><td>Result panel</td><td><span class="tag tag-v">On Demand</span></td></tr>
         </tbody>
       </table>
@@ -974,10 +959,6 @@
         <div class="ins-bar bar-g"></div>
         <div><strong>Seamless Dual-Theme Experience</strong><p>The CSS custom property architecture means switching themes is instant and flicker-free. Both Kuromi and My Melody modes feel like fully realized products, not just color swaps.</p></div>
       </div>
-      <div class="insight-item">
-        <div class="ins-bar bar-y"></div>
-        <div><strong>Audio Adds Delight Without Annoyance</strong><p>The Web Audio tone is short (150ms), soft, and bypasses autoplay restrictions by being triggered inside the click handler. It adds a tactile feel without being intrusive.</p></div>
-      </div>
     </div>
   </section>
 
@@ -994,7 +975,6 @@
 
     <h3>JavaScript</h3>
     <ul>
-      <li><strong>Web Audio API</strong> — creating oscillators, controlling frequency, managing AudioContext lifecycle</li>
       <li><strong>Clipboard API</strong> — <code>navigator.clipboard.writeText()</code> for modern copy-to-clipboard</li>
       <li><strong>DOM manipulation</strong> — dynamic list building, <code>prepend()</code> for history, error injection</li>
       <li><strong>Keyboard events</strong> — binding shortcut keys with focus guards to prevent input interference</li>
@@ -1015,7 +995,7 @@
     <div class="sec-head"><span class="sec-num">12</span><h2>Conclusion 🖤🩷</h2></div>
     <div class="concl-box">
       <p>Kuromi's Chaos Calculator is proof that the best projects come from <strong>real, personal motivation</strong>. It wasn't built to impress anyone or to check a skill off a list — it was built so one person's experience with math could be a little softer, a little more fun, and a lot more <em>her</em>.</p>
-      <p>Technically, it exercises a meaningful range of front-end skills: pure function math logic, DOM manipulation, the Web Audio API, clipboard integration, keyboard shortcuts, CSS theming, and error handling. But the real design challenge was the human one — building something that <strong>feels like a product someone loves</strong>, not just a tool that works.</p>
+      <p>Technically, it exercises a meaningful range of front-end skills: pure function math logic, DOM manipulation, clipboard integration, keyboard shortcuts, CSS theming, and error handling. But the real design challenge was the human one — building something that <strong>feels like a product someone loves</strong>, not just a tool that works.</p>
       <p>The Mischief List, the sarcastic quotes, the oscillator tone, the toggle between dark mischief and soft sweetness — none of that was required by the math. All of it was required by the person it was made for. That balance between function and feeling is what makes this more than a practice project. <strong>It's a gift.</strong> 🖤</p>
     </div>
   </section>
