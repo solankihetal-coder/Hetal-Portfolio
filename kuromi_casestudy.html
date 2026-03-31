@@ -1,0 +1,1030 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kuromi's Chaos Calculator — Case Study</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,300;0,400;0,600;0,700;0,800;0,900;1,400&family=Fredoka+One&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:          #f3e8ff;
+    --bg2:         #ede0f7;
+    --bg3:         #e2d1f0;
+    --card:        #faf5ff;
+    --border:      rgba(120,60,160,0.15);
+    --border2:     rgba(120,60,160,0.28);
+    --ink:         #2d1a40;
+    --muted:       #7a5a9a;
+    --dim:         #b39cc8;
+    --accent:      #7c3aed;
+    --accent2:     #c084fc;
+    --pink:        #f472b6;
+    --pink2:       #fce7f3;
+    --dark:        #1a0a2e;
+    --dark2:       #2e1052;
+    --white:       #ffffff;
+    --shadow:      0 4px 24px rgba(124,58,237,0.10);
+    --shadow-lg:   0 8px 40px rgba(124,58,237,0.18);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    font-size: 16px;
+    line-height: 1.75;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  /* ── DOTTED BG ── */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: radial-gradient(circle, rgba(167,139,250,0.25) 1.5px, transparent 1.5px);
+    background-size: 28px 28px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── COVER ── */
+  .cover {
+    position: relative;
+    background: linear-gradient(135deg, #2d1a40 0%, #4c1d95 50%, #6d28d9 100%);
+    padding: 72px 64px 64px;
+    overflow: hidden;
+    z-index: 1;
+  }
+  .cover-hearts {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+  .heart {
+    position: absolute;
+    border-radius: 50% 50% 0 0;
+    opacity: 0.06;
+  }
+  .heart::before, .heart::after {
+    content: '';
+    position: absolute;
+    width: 100%; height: 100%;
+    background: inherit;
+    border-radius: 50% 50% 0 0;
+  }
+  .h1c { width:320px;height:320px;background:#c084fc;top:-80px;right:-60px;transform:rotate(-45deg); }
+  .h2c { width:200px;height:200px;background:#f472b6;bottom:-40px;left:80px;transform:rotate(-45deg); }
+  .h3c { width:140px;height:140px;background:#a78bfa;top:60px;left:-30px;transform:rotate(-45deg); }
+
+  .cover-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--accent2);
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    position: relative;
+  }
+  .cover-eyebrow::before { content:''; width:28px;height:1px;background:var(--accent2); }
+
+  h1 {
+    font-family: 'Fredoka One', cursive;
+    font-size: clamp(36px, 7vw, 68px);
+    font-weight: 400;
+    line-height: 1.1;
+    color: var(--white);
+    position: relative;
+    margin-bottom: 6px;
+    letter-spacing: 0.02em;
+  }
+  .h1-pink { color: var(--pink); }
+  .cover-tagline {
+    font-size: clamp(15px, 2.2vw, 20px);
+    color: rgba(255,255,255,0.6);
+    font-style: italic;
+    font-weight: 400;
+    margin-bottom: 38px;
+    position: relative;
+  }
+  .cover-chips { display:flex;flex-wrap:wrap;gap:8px;position:relative; }
+  .chip {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    padding: 5px 14px;
+    border-radius: 100px;
+    letter-spacing: 0.05em;
+    border: 1px solid;
+    font-weight: 400;
+  }
+  .chip-v  { color:#c4b5fd;border-color:rgba(196,181,253,0.4);background:rgba(196,181,253,0.1); }
+  .chip-p  { color:#f9a8d4;border-color:rgba(249,168,212,0.4);background:rgba(249,168,212,0.1); }
+  .chip-g  { color:#6ee7b7;border-color:rgba(110,231,183,0.4);background:rgba(110,231,183,0.1); }
+  .chip-y  { color:#fde68a;border-color:rgba(253,230,138,0.4);background:rgba(253,230,138,0.1); }
+  .chip-r  { color:#fca5a5;border-color:rgba(252,165,165,0.4);background:rgba(252,165,165,0.1); }
+
+  /* ── TOC ── */
+  .toc-bar {
+    background: var(--dark2);
+    border-bottom: 1px solid rgba(196,181,253,0.15);
+    padding: 18px 64px;
+    position: relative; z-index: 1;
+  }
+  .toc-inner {
+    max-width: 980px; margin: 0 auto;
+    display: flex; flex-wrap: wrap; gap: 6px 20px; align-items: center;
+  }
+  .toc-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; letter-spacing: 0.18em;
+    color: rgba(196,181,253,0.5); text-transform: uppercase; flex-shrink: 0; margin-right: 8px;
+  }
+  .toc-link {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; color: rgba(196,181,253,0.55);
+    text-decoration: none; transition: color 0.2s; letter-spacing: 0.03em;
+  }
+  .toc-link:hover { color: var(--accent2); }
+
+  /* ── PAGE ── */
+  .page { max-width: 980px; margin: 0 auto; padding: 0 40px 80px; position: relative; z-index: 1; }
+
+  /* ── SECTIONS ── */
+  .section {
+    padding: 60px 0 0;
+    margin-top: 60px;
+    border-top: 2px dashed rgba(167,139,250,0.25);
+  }
+  .sec-head { display:flex;align-items:center;gap:14px;margin-bottom:28px; }
+  .sec-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; color: var(--accent);
+    background: rgba(124,58,237,0.08);
+    border: 1px solid rgba(124,58,237,0.2);
+    border-radius: 8px; padding: 4px 10px; flex-shrink: 0; letter-spacing: 0.1em;
+  }
+  h2 {
+    font-family: 'Fredoka One', cursive;
+    font-size: clamp(22px, 3.5vw, 32px);
+    font-weight: 400;
+    color: var(--dark);
+    letter-spacing: 0.02em;
+    line-height: 1.15;
+  }
+  h3 {
+    font-family: 'Nunito', sans-serif;
+    font-size: 12px; font-weight: 800;
+    text-transform: uppercase; letter-spacing: 0.14em;
+    color: var(--accent); margin: 34px 0 14px;
+  }
+  p { color: var(--muted); margin-bottom: 16px; max-width: 72ch; font-weight: 400; }
+  strong { color: var(--ink); font-weight: 700; }
+
+  /* ── HEART DIVIDER ── */
+  .heart-div {
+    text-align: center; color: var(--accent2);
+    font-size: 18px; letter-spacing: 8px;
+    margin: 24px 0;
+    opacity: 0.5;
+  }
+
+  /* ── STORY CARD ── */
+  .story-card {
+    background: linear-gradient(135deg, var(--dark) 0%, var(--dark2) 100%);
+    border-radius: 20px;
+    padding: 36px 40px;
+    margin-bottom: 28px;
+    border: 1px solid rgba(196,181,253,0.15);
+    box-shadow: var(--shadow-lg);
+    position: relative;
+    overflow: hidden;
+  }
+  .story-card::before {
+    content: '♡';
+    position: absolute; right: 28px; top: 16px;
+    font-size: 80px; color: rgba(244,114,182,0.08);
+    line-height: 1; pointer-events: none;
+  }
+  .story-card p { color: rgba(255,255,255,0.65); max-width: 100%; }
+  .story-card p + p { margin-top: 6px; }
+  .story-quote {
+    font-style: italic;
+    font-size: 17px;
+    color: var(--accent2) !important;
+    border-left: 3px solid var(--pink);
+    padding-left: 16px;
+    margin: 18px 0 !important;
+    line-height: 1.6;
+  }
+
+  /* ── STAT GRID ── */
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px,1fr));
+    gap: 12px; margin-bottom: 32px;
+  }
+  .stat-card {
+    background: var(--card);
+    border: 1.5px solid var(--border2);
+    border-radius: 16px; padding: 20px 20px 16px;
+    box-shadow: var(--shadow);
+    text-align: center;
+  }
+  .stat-emoji { font-size: 26px; margin-bottom: 6px; }
+  .stat-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9.5px; letter-spacing: 0.14em;
+    color: var(--dim); text-transform: uppercase; margin-bottom: 5px;
+  }
+  .stat-val {
+    font-family: 'Fredoka One', cursive;
+    font-size: 17px; color: var(--accent);
+    letter-spacing: 0.02em;
+  }
+  .stat-val.pink { color: var(--pink); }
+  .stat-val.dark { color: var(--dark); }
+
+  /* ── FEATURE CARDS ── */
+  .feat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px,1fr));
+    gap: 14px; margin-bottom: 28px;
+  }
+  .feat-card {
+    background: var(--card);
+    border: 1.5px solid var(--border);
+    border-radius: 18px; padding: 24px 26px;
+    box-shadow: var(--shadow);
+    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+  }
+  .feat-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); border-color: var(--border2); }
+  .feat-emoji { font-size: 28px; margin-bottom: 10px; display: block; }
+  .feat-card h4 {
+    font-family: 'Fredoka One', cursive;
+    font-size: 16px; color: var(--dark);
+    margin-bottom: 7px; letter-spacing: 0.02em;
+  }
+  .feat-card p { font-size: 13.5px; margin: 0; }
+
+  /* ── MATH CARDS ── */
+  .math-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px,1fr));
+    gap: 14px; margin-bottom: 28px;
+  }
+  .math-card {
+    background: var(--dark);
+    border-radius: 16px; padding: 24px 26px;
+    border: 1px solid rgba(196,181,253,0.12);
+    text-align: center;
+    box-shadow: var(--shadow-lg);
+  }
+  .math-symbol {
+    font-family: 'Fredoka One', cursive;
+    font-size: 36px; color: var(--accent2);
+    margin-bottom: 8px;
+  }
+  .math-name {
+    font-family: 'Fredoka One', cursive;
+    font-size: 16px; color: var(--white);
+    margin-bottom: 6px;
+  }
+  .math-formula {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px; color: var(--pink);
+    margin-bottom: 6px;
+  }
+  .math-card p { font-size: 12.5px; color: rgba(255,255,255,0.5); margin: 0; max-width: 100%; }
+  .math-example {
+    display: inline-block;
+    background: rgba(244,114,182,0.1);
+    border: 1px solid rgba(244,114,182,0.2);
+    color: var(--pink); border-radius: 8px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px; padding: 3px 10px;
+    margin-top: 8px;
+  }
+
+  /* ── ALGO STEPS ── */
+  .algo-wrap {
+    display: flex; flex-direction: column; gap: 0;
+    margin: 20px 0 28px; position: relative;
+  }
+  .algo-wrap::before {
+    content: '';
+    position: absolute; left: 19px; top: 8px; bottom: 8px;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--accent), var(--pink), rgba(196,181,253,0.2));
+  }
+  .algo-step {
+    display: flex; gap: 20px;
+    padding: 14px 0 14px 52px; position: relative;
+  }
+  .a-num {
+    position: absolute; left: 7px; top: 16px;
+    width: 26px; height: 26px; border-radius: 50%;
+    background: var(--accent);
+    color: var(--white);
+    font-family: 'Fredoka One', cursive; font-size: 13px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; z-index: 1;
+    box-shadow: 0 0 10px rgba(124,58,237,0.4);
+  }
+  .a-body h4 {
+    font-family: 'Fredoka One', cursive;
+    font-size: 16px; color: var(--dark); margin-bottom: 3px;
+  }
+  .a-body p { font-size: 13.5px; margin: 0; }
+
+  /* ── CODE BLOCK ── */
+  .code-block {
+    background: var(--dark);
+    border: 1px solid rgba(196,181,253,0.15);
+    border-radius: 16px; padding: 24px 28px;
+    margin: 18px 0 28px; overflow-x: auto;
+  }
+  .code-top {
+    display: flex; align-items: center; gap: 6px;
+    margin-bottom: 16px; padding-bottom: 12px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .dot { width:10px;height:10px;border-radius:50%; }
+  .dot-r{background:#ff5f56;} .dot-y{background:#ffbd2e;} .dot-g{background:#27c93f;}
+  .code-file {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; color: rgba(196,181,253,0.4);
+    margin-left: auto; letter-spacing: 0.05em;
+  }
+  pre {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12.5px; line-height: 1.75;
+    color: rgba(232,220,255,0.65); white-space: pre;
+  }
+  .kw  { color:#c084fc; }
+  .fn  { color:#f9a8d4; }
+  .str { color:#6ee7b7; }
+  .cm  { color:rgba(196,181,253,0.3);font-style:italic; }
+  .num { color:#fde68a; }
+  .op  { color:#f472b6; }
+
+  /* ── TABLES ── */
+  .tbl-wrap {
+    overflow-x: auto; border-radius: 16px;
+    border: 1.5px solid var(--border2);
+    margin: 16px 0 28px; box-shadow: var(--shadow);
+  }
+  table { width:100%;border-collapse:collapse;font-size:13.5px; }
+  thead tr { background: linear-gradient(90deg, var(--accent), #9333ea); }
+  thead th {
+    padding: 13px 18px; text-align: left;
+    font-family: 'Fredoka One', cursive;
+    font-size: 13px; color: var(--white);
+    font-weight: 400; white-space: nowrap; letter-spacing: 0.04em;
+  }
+  tbody tr { border-top: 1px solid var(--border); transition: background 0.15s; }
+  tbody tr:nth-child(even) { background: rgba(167,139,250,0.04); }
+  tbody tr:hover { background: rgba(167,139,250,0.09); }
+  tbody td {
+    padding: 12px 18px; color: var(--muted);
+    vertical-align: top; font-weight: 400;
+  }
+  tbody td:first-child { color: var(--ink); font-weight: 700; }
+  .tag {
+    display: inline-block; border-radius: 100px;
+    padding: 2px 10px; font-size: 11px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .tag-v { background:rgba(167,139,250,0.12);color:var(--accent);border:1px solid rgba(167,139,250,0.3); }
+  .tag-p { background:rgba(244,114,182,0.12);color:var(--pink);border:1px solid rgba(244,114,182,0.3); }
+  .tag-g { background:rgba(110,231,183,0.12);color:#10b981;border:1px solid rgba(110,231,183,0.3); }
+
+  /* ── UL / OL ── */
+  ul, ol { list-style: none; padding: 0; margin-bottom: 20px; }
+  ul li, ol li {
+    position: relative; padding: 7px 0 7px 24px;
+    color: var(--muted); font-size: 15px;
+    border-bottom: 1px dashed rgba(167,139,250,0.2);
+  }
+  ul li:last-child, ol li:last-child { border-bottom: none; }
+  ul li::before {
+    content: '♡';
+    position: absolute; left: 0; top: 7px;
+    color: var(--pink); font-size: 13px;
+  }
+  ol { counter-reset: c; }
+  ol li { counter-increment: c; }
+  ol li::before {
+    content: counter(c, decimal-leading-zero);
+    position: absolute; left: 0; top: 7px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; color: var(--accent);
+  }
+  li strong { color: var(--ink); }
+
+  /* ── CHALLENGE CARDS ── */
+  .ch-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px,1fr));
+    gap: 14px; margin-bottom: 24px;
+  }
+  .ch-card {
+    background: var(--card);
+    border: 1.5px solid var(--border);
+    border-radius: 16px; padding: 22px 24px;
+    border-top: 4px solid;
+    box-shadow: var(--shadow);
+  }
+  .ch-v { border-top-color: var(--accent); }
+  .ch-p { border-top-color: var(--pink); }
+  .ch-y { border-top-color: #f59e0b; }
+  .ch-t { border-top-color: #06b6d4; }
+  .ch-card h4 {
+    font-family: 'Fredoka One', cursive;
+    font-size: 15px; margin-bottom: 7px;
+  }
+  .ch-v h4 { color: var(--accent); }
+  .ch-p h4 { color: var(--pink); }
+  .ch-y h4 { color: #f59e0b; }
+  .ch-t h4 { color: #06b6d4; }
+  .ch-card p { font-size: 13px; margin: 0; }
+
+  /* ── THEME COMPARE ── */
+  .theme-compare {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px; margin-bottom: 28px;
+  }
+  .theme-panel {
+    border-radius: 16px; padding: 24px 26px;
+    border: 1.5px solid;
+  }
+  .theme-k {
+    background: #f5e6ff;
+    border-color: rgba(124,58,237,0.3);
+  }
+  .theme-m {
+    background: #fff0f6;
+    border-color: rgba(244,114,182,0.3);
+  }
+  .theme-panel h4 {
+    font-family: 'Fredoka One', cursive;
+    font-size: 16px; margin-bottom: 12px;
+  }
+  .theme-k h4 { color: var(--accent); }
+  .theme-m h4 { color: var(--pink); }
+  .theme-panel ul { margin: 0; }
+  .theme-panel ul li { font-size: 13px; padding: 4px 0 4px 20px; border-bottom: none; }
+  .theme-panel ul li::before { font-size: 11px; top: 4px; }
+  .swatch-row { display:flex;gap:6px;margin-top:10px; }
+  .swatch {
+    width:24px;height:24px;border-radius:50%;
+    border: 2px solid rgba(255,255,255,0.6);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+  }
+
+  /* ── INSIGHT LIST ── */
+  .insight-list { display:flex;flex-direction:column;gap:12px;margin-bottom:28px; }
+  .insight-item {
+    display:flex;gap:16px;
+    background: var(--card);
+    border: 1.5px solid var(--border);
+    border-radius: 16px; padding: 20px 24px;
+    align-items: flex-start;
+    box-shadow: var(--shadow);
+  }
+  .ins-bar { width:4px;align-self:stretch;border-radius:3px;flex-shrink:0; }
+  .bar-v { background: var(--accent); }
+  .bar-p { background: var(--pink); }
+  .bar-g { background: #10b981; }
+  .bar-y { background: #f59e0b; }
+  .insight-item strong {
+    display:block;font-family:'Fredoka One',cursive;
+    font-size:15px;color:var(--dark);margin-bottom:4px;font-weight:400;
+  }
+  .insight-item p { font-size: 13.5px; margin: 0; }
+
+  /* ── CONCLUSION ── */
+  .concl-box {
+    background: linear-gradient(135deg, var(--dark) 0%, var(--dark2) 100%);
+    border-radius: 22px; padding: 44px 48px;
+    margin-top: 28px; position: relative; overflow: hidden;
+    border: 1px solid rgba(196,181,253,0.12);
+    box-shadow: var(--shadow-lg);
+  }
+  .concl-box::before {
+    content: '🖤';
+    position: absolute; right: 36px; top: 28px;
+    font-size: 64px; opacity: 0.12; pointer-events: none;
+  }
+  .concl-box p {
+    color: rgba(255,255,255,0.6);
+    font-size: 15px; line-height: 1.85;
+    max-width: 70ch; position: relative;
+  }
+  .concl-box p + p { margin-top: 14px; }
+  .concl-box strong { color: var(--accent2); }
+
+  /* ── INLINE CODE ── */
+  code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12.5px;
+    background: rgba(124,58,237,0.1);
+    border: 1px solid rgba(124,58,237,0.2);
+    color: var(--accent); padding: 2px 8px; border-radius: 6px;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--dark);
+    border-top: 1px solid rgba(196,181,253,0.1);
+    padding: 28px 64px; text-align: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; color: rgba(196,181,253,0.35);
+    letter-spacing: 0.1em; position: relative; z-index: 1;
+  }
+  footer span { color: var(--pink); }
+
+  @media(max-width:640px){
+    .cover{padding:44px 24px 40px;}
+    .toc-bar{padding:14px 20px;}
+    .page{padding:0 18px 60px;}
+    .theme-compare{grid-template-columns:1fr;}
+    .concl-box{padding:28px 24px;}
+  }
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="cover">
+  <div class="cover-hearts">
+    <div class="heart h1c"></div>
+    <div class="heart h2c"></div>
+    <div class="heart h3c"></div>
+  </div>
+  <p class="cover-eyebrow">Personalized Gift Project · Front-End Development</p>
+  <h1>Kuromi's <span class="h1-pink">Chaos</span> Calculator</h1>
+  <p class="cover-tagline">Squares, cubes &amp; roots — served with sarcasm. Built with love for a sister. 🖤🩷</p>
+  <div class="cover-chips">
+    <span class="chip chip-v">Vanilla JS</span>
+    <span class="chip chip-p">HTML / CSS</span>
+    <span class="chip chip-g">Kuromi Theme</span>
+    <span class="chip chip-y">My Melody Theme</span>
+    <span class="chip chip-r">History · Audio · Quiz</span>
+  </div>
+</div>
+
+<!-- TOC -->
+<div class="toc-bar">
+  <div class="toc-inner">
+    <span class="toc-label">Jump to</span>
+    <a class="toc-link" href="#s1">01 Story</a>
+    <a class="toc-link" href="#s2">02 Overview</a>
+    <a class="toc-link" href="#s3">03 Features</a>
+    <a class="toc-link" href="#s4">04 Math Engine</a>
+    <a class="toc-link" href="#s5">05 Algorithm</a>
+    <a class="toc-link" href="#s6">06 Core Logic</a>
+    <a class="toc-link" href="#s7">07 Themes</a>
+    <a class="toc-link" href="#s8">08 Challenges</a>
+    <a class="toc-link" href="#s9">09 I/O</a>
+    <a class="toc-link" href="#s10">10 Outcomes</a>
+    <a class="toc-link" href="#s11">11 Learnings</a>
+    <a class="toc-link" href="#s12">12 Conclusion</a>
+  </div>
+</div>
+
+<div class="page">
+
+  <!-- 1. The Story -->
+  <section class="section" id="s1">
+    <div class="sec-head"><span class="sec-num">01</span><h2>The Story Behind It 🖤</h2></div>
+    <div class="story-card">
+      <p class="story-quote">"She asked if I could make her a calculator that was actually cute — so I did."</p>
+      <p>Every great project starts with a real problem. This one started with a sister who loves <strong style="color:#c4b5fd">Kuromi</strong> and <strong style="color:#f9a8d4">My Melody</strong> and kept struggling whenever she needed to quickly find the square, cube, or square root of a number — tools buried deep inside scientific calculators or plain-looking web apps that felt nothing like her personality.</p>
+      <p>The ask was simple: build something that feels <em>hers</em>. A calculator designed around two of her favorite Sanrio characters, with a theme toggle so she can switch between Kuromi's dark mischief and My Melody's soft sweetness — and a personality, down to the sarcastic quotes in the result panel.</p>
+      <p>What started as a quick gift became a full <strong style="color:#c4b5fd">design + development project</strong> — covering math logic, DOM manipulation, audio integration, theme switching, and a history panel the developer calls the <em>"Mischief List."</em></p>
+    </div>
+  </section>
+
+  <!-- 2. Overview -->
+  <section class="section" id="s2">
+    <div class="sec-head"><span class="sec-num">02</span><h2>Project Overview</h2></div>
+    <div class="stat-grid">
+      <div class="stat-card"><div class="stat-emoji">🖤</div><div class="stat-label">Type</div><div class="stat-val dark">Gift Project</div></div>
+      <div class="stat-card"><div class="stat-emoji">🎨</div><div class="stat-label">Stack</div><div class="stat-val">HTML · CSS · JS</div></div>
+      <div class="stat-card"><div class="stat-emoji">✨</div><div class="stat-label">Themes</div><div class="stat-val pink">2 Modes</div></div>
+      <div class="stat-card"><div class="stat-emoji">🧮</div><div class="stat-label">Operations</div><div class="stat-val">Square · Cube · Root</div></div>
+      <div class="stat-card"><div class="stat-emoji">📜</div><div class="stat-label">History</div><div class="stat-val">Mischief List</div></div>
+      <div class="stat-card"><div class="stat-emoji">🎵</div><div class="stat-label">Audio</div><div class="stat-val pink">Kuromi Tone</div></div>
+    </div>
+    <p>Kuromi's Chaos Calculator is a <strong>single-page, front-end web application</strong> built with zero dependencies — pure HTML, CSS, and Vanilla JavaScript. It was designed from scratch to feel like a Sanrio product page, not a math tool. The user types any number, presses one of three operation buttons, and gets an instant result with a sarcastic in-character Kuromi quote. A dedicated history panel stores every calculation performed in the session.</p>
+  </section>
+
+  <!-- 3. Features -->
+  <section class="section" id="s3">
+    <div class="sec-head"><span class="sec-num">03</span><h2>Features</h2></div>
+    <div class="feat-grid">
+      <div class="feat-card">
+        <span class="feat-emoji">🖤</span>
+        <h4>x² Square</h4>
+        <p>Instantly computes the square of any entered number. Works for integers, decimals, and negative values.</p>
+      </div>
+      <div class="feat-card">
+        <span class="feat-emoji">🎲</span>
+        <h4>x³ Cube</h4>
+        <p>Calculates the cube of the input. Correctly handles negative numbers — a cubed negative stays negative.</p>
+      </div>
+      <div class="feat-card">
+        <span class="feat-emoji">√</span>
+        <h4>√ Square Root</h4>
+        <p>Returns the square root. Flags imaginary results for negative inputs with a Kuromi-flavored error message.</p>
+      </div>
+      <div class="feat-card">
+        <span class="feat-emoji">🎲</span>
+        <h4>Random Number</h4>
+        <p>Fills the input field with a random integer for quick fun calculations — great for quiz-style practice.</p>
+      </div>
+      <div class="feat-card">
+        <span class="feat-emoji">📜</span>
+        <h4>My Mischief List</h4>
+        <p>A scrollable history panel that logs every calculation with its expression and result. Clearable with one click.</p>
+      </div>
+      <div class="feat-card">
+        <span class="feat-emoji">🎵</span>
+        <h4>Kuromi Tone</h4>
+        <p>A subtle sound plays on each calculation — a soft, character-appropriate audio cue using the Web Audio API.</p>
+      </div>
+      <div class="feat-card">
+        <span class="feat-emoji">🌸</span>
+        <h4>Theme Toggle</h4>
+        <p>Switch between <strong>Kuromi Mode</strong> (dark purple, edgy) and <strong>My Melody Mode</strong> (soft pink, sweet) with a single toggle.</p>
+      </div>
+      <div class="feat-card">
+        <span class="feat-emoji">💬</span>
+        <h4>Sarcastic Quotes</h4>
+        <p>The result panel displays a rotating pool of in-character Kuromi quotes after every calculation for personality.</p>
+      </div>
+      <div class="feat-card">
+        <span class="feat-emoji">📋</span>
+        <h4>Copy &amp; Round</h4>
+        <p>Copy result to clipboard instantly. Round button trims irrational roots to a clean decimal for readability.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. Math Engine -->
+  <section class="section" id="s4">
+    <div class="sec-head"><span class="sec-num">04</span><h2>Math Engine</h2></div>
+    <p>The calculator covers three mathematical operations. Each is implemented as a pure function — no state, no side effects — so the logic is testable and reusable independently of the UI.</p>
+    <div class="math-grid">
+      <div class="math-card">
+        <div class="math-symbol">x²</div>
+        <div class="math-name">Square</div>
+        <div class="math-formula">f(n) = n × n = n²</div>
+        <p>Multiplies the number by itself. Works for all reals including negatives and zero.</p>
+        <span class="math-example">−7² = 49</span>
+      </div>
+      <div class="math-card">
+        <div class="math-symbol">x³</div>
+        <div class="math-name">Cube</div>
+        <div class="math-formula">f(n) = n × n × n = n³</div>
+        <p>Raises to the third power. Negative input yields a negative result.</p>
+        <span class="math-example">−3³ = −27</span>
+      </div>
+      <div class="math-card">
+        <div class="math-symbol">√</div>
+        <div class="math-name">Square Root</div>
+        <div class="math-formula">f(n) = √n = n^(1/2)</div>
+        <p>Returns principal square root. Negative input triggers imaginary number warning.</p>
+        <span class="math-example">√144 = 12</span>
+      </div>
+    </div>
+
+    <h3>Edge Cases Handled</h3>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Input</th><th>Operation</th><th>Expected</th><th>How Handled</th></tr></thead>
+        <tbody>
+          <tr><td>0</td><td>Square / Cube</td><td>0</td><td>Normal computation, displays 0 cleanly</td></tr>
+          <tr><td>−5</td><td>Square</td><td>25</td><td>Negative × negative = positive; correct</td></tr>
+          <tr><td>−5</td><td>Cube</td><td>−125</td><td>Odd power preserves sign; correct</td></tr>
+          <tr><td>−9</td><td>Square Root</td><td>Error</td><td>Displays "chaos detected 💀" Kuromi error</td></tr>
+          <tr><td>Empty</td><td>Any</td><td>Error</td><td>Prompt to enter a number first</td></tr>
+          <tr><td>Text / NaN</td><td>Any</td><td>Error</td><td>Input validated before computation</td></tr>
+          <tr><td>0.25</td><td>Square Root</td><td>0.5</td><td>Decimal input supported; precise result</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 5. Algorithm -->
+  <section class="section" id="s5">
+    <div class="sec-head"><span class="sec-num">05</span><h2>Algorithm Design</h2></div>
+    <div class="algo-wrap">
+      <div class="algo-step"><span class="a-num">1</span><div class="a-body"><h4>Read Input</h4><p>Grab the value from the number input field. Trim whitespace and parse as a float using <code>parseFloat()</code>.</p></div></div>
+      <div class="algo-step"><span class="a-num">2</span><div class="a-body"><h4>Validate</h4><p>Check for <code>NaN</code> or empty string. For square root, additionally check if the value is negative. Show themed error if invalid.</p></div></div>
+      <div class="algo-step"><span class="a-num">3</span><div class="a-body"><h4>Compute</h4><p>Route to the corresponding pure function: <code>square(n)</code>, <code>cube(n)</code>, or <code>root(n)</code>. Each returns a numeric result.</p></div></div>
+      <div class="algo-step"><span class="a-num">4</span><div class="a-body"><h4>Format Result</h4><p>If result is irrational (non-integer root), display full precision. Round button optionally trims to 4 decimal places via <code>toFixed(4)</code>.</p></div></div>
+      <div class="algo-step"><span class="a-num">5</span><div class="a-body"><h4>Display Result</h4><p>Inject the result string into the result panel DOM node. Select a random Kuromi quote from the quote pool and inject it below.</p></div></div>
+      <div class="algo-step"><span class="a-num">6</span><div class="a-body"><h4>Log to History</h4><p>Push an entry object <code>{ expression, result, timestamp }</code> into the history array. Prepend a new list item to the Mischief List panel.</p></div></div>
+      <div class="algo-step"><span class="a-num">7</span><div class="a-body"><h4>Play Audio</h4><p>Trigger the Web Audio API tone — a short oscillator burst at character-appropriate frequency — then auto-stop after 150ms.</p></div></div>
+    </div>
+  </section>
+
+  <!-- 6. Core Logic -->
+  <section class="section" id="s6">
+    <div class="sec-head"><span class="sec-num">06</span><h2>Core Logic</h2></div>
+    <div class="code-block">
+      <div class="code-top">
+        <div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div>
+        <span class="code-file">chaos-calculator.js</span>
+      </div>
+      <pre><span class="cm">// ── Math Engine (pure functions) ────────────────────────────</span>
+
+<span class="kw">const</span> <span class="fn">square</span> = n =&gt; n <span class="op">**</span> <span class="num">2</span>
+<span class="kw">const</span> <span class="fn">cube</span>   = n =&gt; n <span class="op">**</span> <span class="num">3</span>
+<span class="kw">const</span> <span class="fn">root</span>   = n =&gt; {
+  <span class="kw">if</span> (n <span class="op">&lt;</span> <span class="num">0</span>) <span class="kw">throw new</span> <span class="fn">Error</span>(<span class="str">'chaos detected 💀'</span>)
+  <span class="kw">return</span> Math.<span class="fn">sqrt</span>(n)
+}
+
+<span class="cm">// ── Input Validation ─────────────────────────────────────────</span>
+
+<span class="kw">function</span> <span class="fn">validate</span>(raw) {
+  <span class="kw">const</span> n = <span class="fn">parseFloat</span>(raw)
+  <span class="kw">if</span> (raw.trim() <span class="op">===</span> <span class="str">''</span> <span class="op">||</span> <span class="fn">isNaN</span>(n))
+    <span class="kw">throw new</span> <span class="fn">Error</span>(<span class="str">'enter a number first 🖤'</span>)
+  <span class="kw">return</span> n
+}
+
+<span class="cm">// ── Compute & Render ─────────────────────────────────────────</span>
+
+<span class="kw">function</span> <span class="fn">calculate</span>(operation) {
+  <span class="kw">try</span> {
+    <span class="kw">const</span> n      = <span class="fn">validate</span>(inputEl.value)
+    <span class="kw">const</span> ops    = { square, cube, root }
+    <span class="kw">const</span> result = ops[operation](n)
+    <span class="kw">const</span> expr   = <span class="fn">formatExpr</span>(n, operation)
+
+    <span class="fn">showResult</span>(result, expr)
+    <span class="fn">addToHistory</span>(expr, result)
+    <span class="fn">playTone</span>()
+  } <span class="kw">catch</span> (err) {
+    <span class="fn">showError</span>(err.message)
+  }
+}
+
+<span class="cm">// ── History ──────────────────────────────────────────────────</span>
+
+<span class="kw">const</span> history = []
+
+<span class="kw">function</span> <span class="fn">addToHistory</span>(expr, result) {
+  history.<span class="fn">unshift</span>({ expr, result, time: <span class="kw">new</span> Date() })
+  <span class="kw">const</span> li = document.<span class="fn">createElement</span>(<span class="str">'li'</span>)
+  li.innerHTML = <span class="str">`&lt;span&gt;${expr}&lt;/span&gt; = &lt;strong&gt;${result}&lt;/strong&gt;`</span>
+  historyList.<span class="fn">prepend</span>(li)
+}
+
+<span class="cm">// ── Audio: Web Audio API tone ────────────────────────────────</span>
+
+<span class="kw">function</span> <span class="fn">playTone</span>() {
+  <span class="kw">const</span> ctx = <span class="kw">new</span> AudioContext()
+  <span class="kw">const</span> osc = ctx.<span class="fn">createOscillator</span>()
+  osc.frequency.value = <span class="num">520</span>          <span class="cm">// Kuromi: slightly eerie pitch</span>
+  osc.type = <span class="str">'sine'</span>
+  osc.<span class="fn">connect</span>(ctx.destination)
+  osc.<span class="fn">start</span>()
+  <span class="fn">setTimeout</span>(() =&gt; { osc.<span class="fn">stop</span>(); ctx.<span class="fn">close</span>() }, <span class="num">150</span>)
+}
+
+<span class="cm">// ── Theme Toggle ─────────────────────────────────────────────</span>
+
+<span class="kw">function</span> <span class="fn">toggleTheme</span>(isKuromi) {
+  document.body.dataset.theme = isKuromi ? <span class="str">'kuromi'</span> : <span class="str">'melody'</span>
+}</pre>
+    </div>
+  </section>
+
+  <!-- 7. Themes -->
+  <section class="section" id="s7">
+    <div class="sec-head"><span class="sec-num">07</span><h2>Dual Theme Design</h2></div>
+    <p>The toggle button switches the entire visual identity of the app between two distinct Sanrio personalities, all driven by swapping a <code>data-theme</code> attribute on the <code>&lt;body&gt;</code> tag and CSS custom properties doing the rest.</p>
+
+    <div class="theme-compare">
+      <div class="theme-panel theme-k">
+        <h4>🖤 Kuromi Mode</h4>
+        <ul>
+          <li>Deep dark purple backgrounds</li>
+          <li>Black operation buttons with white text</li>
+          <li>Edgy rounded-rectangle layout</li>
+          <li>Sarcastic, mischievous quote tone</li>
+          <li>Lower-pitch eerie oscillator tone</li>
+          <li>Skull &amp; dark emoji decorations</li>
+        </ul>
+        <div class="swatch-row">
+          <div class="swatch" style="background:#1a0a2e"></div>
+          <div class="swatch" style="background:#4c1d95"></div>
+          <div class="swatch" style="background:#7c3aed"></div>
+          <div class="swatch" style="background:#c084fc"></div>
+          <div class="swatch" style="background:#f0e6ff"></div>
+        </div>
+      </div>
+      <div class="theme-panel theme-m">
+        <h4>🩷 My Melody Mode</h4>
+        <ul>
+          <li>Soft pastel pink backgrounds</li>
+          <li>Bubblegum pink operation buttons</li>
+          <li>Rounded, soft card edges</li>
+          <li>Sweet, encouraging quote tone</li>
+          <li>Higher-pitch cheerful oscillator tone</li>
+          <li>Heart &amp; flower emoji decorations</li>
+        </ul>
+        <div class="swatch-row">
+          <div class="swatch" style="background:#831843"></div>
+          <div class="swatch" style="background:#db2777"></div>
+          <div class="swatch" style="background:#f472b6"></div>
+          <div class="swatch" style="background:#fbcfe8"></div>
+          <div class="swatch" style="background:#fdf2f8"></div>
+        </div>
+      </div>
+    </div>
+
+    <h3>Implementation: CSS Custom Property Swap</h3>
+    <div class="code-block">
+      <div class="code-top">
+        <div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div>
+        <span class="code-file">theme.css</span>
+      </div>
+      <pre><span class="cm">/* Default: Kuromi theme */</span>
+:root {
+  --bg-main:    <span class="str">#1a0a2e</span>;
+  --accent:     <span class="str">#7c3aed</span>;
+  --btn-bg:     <span class="str">#000000</span>;
+  --quote-col:  <span class="str">#c084fc</span>;
+}
+
+<span class="cm">/* My Melody theme — toggled via data-theme attribute */</span>
+[data-theme=<span class="str">"melody"</span>] {
+  --bg-main:    <span class="str">#fdf2f8</span>;
+  --accent:     <span class="str">#db2777</span>;
+  --btn-bg:     <span class="str">#f472b6</span>;
+  --quote-col:  <span class="str">#be185d</span>;
+}</pre>
+    </div>
+  </section>
+
+  <!-- 8. Challenges -->
+  <section class="section" id="s8">
+    <div class="sec-head"><span class="sec-num">08</span><h2>Challenges &amp; Solutions</h2></div>
+    <div class="ch-grid">
+      <div class="ch-card ch-v">
+        <h4>Square Root of Negatives</h4>
+        <p>Math.sqrt(−n) returns <code>NaN</code>, not an error. The solution was a pre-check inside the root function: if <code>n &lt; 0</code>, throw a custom error and display a Kuromi-flavored "imaginary chaos" message before Math.sqrt is ever called.</p>
+      </div>
+      <div class="ch-card ch-p">
+        <h4>Irrational Results Display</h4>
+        <p>√2 = 1.4142135623… — displaying all digits is ugly. The default shows full precision; the Round button calls <code>toFixed(4)</code> on demand. Users choose their level of detail.</p>
+      </div>
+      <div class="ch-card ch-y">
+        <h4>Seamless Theme Switching</h4>
+        <p>Rebuilding theme logic with class toggles caused visual flashes. The solution was to use CSS <code>transition</code> on all color properties and switch via a single <code>data-theme</code> attribute, letting CSS handle the rest instantly.</p>
+      </div>
+      <div class="ch-card ch-t">
+        <h4>Web Audio on User Gesture</h4>
+        <p>Browsers block audio without a user gesture. AudioContext was created <em>inside</em> the button click handler (not on page load), satisfying the browser autoplay policy without needing a separate user permission prompt.</p>
+      </div>
+      <div class="ch-card ch-v">
+        <h4>History Panel Performance</h4>
+        <p>Appending many DOM nodes repeatedly degrades performance. Used <code>prepend()</code> instead of <code>appendChild()</code> so new entries appear at the top, and limited visible items via CSS <code>overflow-y: auto</code> with a max-height.</p>
+      </div>
+      <div class="ch-card ch-p">
+        <h4>Keyboard Shortcut Conflicts</h4>
+        <p>S, C, R keyboard shortcuts could interfere with typing in the input field. Added a check: <code>if (event.target === inputEl) return</code> — shortcuts only fire when focus is outside the input.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9. Inputs & Outputs -->
+  <section class="section" id="s9">
+    <div class="sec-head"><span class="sec-num">09</span><h2>Inputs &amp; Outputs</h2></div>
+
+    <h3>Input Parameters</h3>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Input</th><th>Type</th><th>Range</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td>Number field</td><td>Float / Int</td><td>Any real number</td><td>Supports negatives, decimals, large integers</td></tr>
+          <tr><td>Operation</td><td>Button click / Keyboard</td><td>Square, Cube, Root</td><td>S / C / R keyboard shortcuts supported</td></tr>
+          <tr><td>Random</td><td>Button click</td><td>Auto-generated</td><td>Fills input with a random integer 1–999</td></tr>
+          <tr><td>Theme Toggle</td><td>Toggle switch</td><td>Kuromi / My Melody</td><td>Persists via <code>data-theme</code> on body</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Output Formats</h3>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Output</th><th>Format</th><th>Location</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td>Computed Result</td><td>Number (full precision)</td><td>Result panel</td><td><span class="tag tag-g">Live</span></td></tr>
+          <tr><td>Expression Label</td><td>e.g. "7² = 49"</td><td>Result panel</td><td><span class="tag tag-g">Live</span></td></tr>
+          <tr><td>Kuromi Quote</td><td>Random string from pool</td><td>Below result</td><td><span class="tag tag-v">Personality</span></td></tr>
+          <tr><td>History Entry</td><td>Expression + result row</td><td>Mischief List panel</td><td><span class="tag tag-g">Session</span></td></tr>
+          <tr><td>Clipboard Copy</td><td>Plain text number</td><td>System clipboard</td><td><span class="tag tag-g">Implemented</span></td></tr>
+          <tr><td>Audio Tone</td><td>Web Audio oscillator</td><td>System speakers</td><td><span class="tag tag-p">On Compute</span></td></tr>
+          <tr><td>Rounded Result</td><td><code>toFixed(4)</code></td><td>Result panel</td><td><span class="tag tag-v">On Demand</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Sample Calculations</h3>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Input</th><th>Operation</th><th>Result</th><th>Quote Shown</th></tr></thead>
+        <tbody>
+          <tr><td>9</td><td>x² Square</td><td>81</td><td>"Kuromi's not a bad girl… just a little mischievous." 😈</td></tr>
+          <tr><td>−3</td><td>x³ Cube</td><td>−27</td><td>"Even chaos has its patterns." 🖤</td></tr>
+          <tr><td>144</td><td>√ Root</td><td>12</td><td>"That was too easy for me." 💅</td></tr>
+          <tr><td>2</td><td>√ Root</td><td>1.4142135…</td><td>"Irrational. Just like me." 💀</td></tr>
+          <tr><td>−4</td><td>√ Root</td><td>Error</td><td>"chaos detected 💀 — that's imaginary!"</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 10. Outcomes -->
+  <section class="section" id="s10">
+    <div class="sec-head"><span class="sec-num">10</span><h2>Key Outcomes</h2></div>
+    <div class="insight-list">
+      <div class="insight-item">
+        <div class="ins-bar bar-v"></div>
+        <div><strong>A Tool She Actually Uses</strong><p>The primary goal was to make math feel approachable and fun for someone who found standard calculators intimidating. The Sanrio theme, sarcastic quotes, and Mischief List history gave it personality — making it something she opens daily instead of a bookmark she forgets.</p></div>
+      </div>
+      <div class="insight-item">
+        <div class="ins-bar bar-p"></div>
+        <div><strong>Correct Math Across All Edge Cases</strong><p>Every operation — including negative squares, negative cubes, zero inputs, irrational roots, and imaginary results — is computed correctly and displayed clearly without breaking the UI.</p></div>
+      </div>
+      <div class="insight-item">
+        <div class="ins-bar bar-g"></div>
+        <div><strong>Seamless Dual-Theme Experience</strong><p>The CSS custom property architecture means switching themes is instant and flicker-free. Both Kuromi and My Melody modes feel like fully realized products, not just color swaps.</p></div>
+      </div>
+      <div class="insight-item">
+        <div class="ins-bar bar-y"></div>
+        <div><strong>Audio Adds Delight Without Annoyance</strong><p>The Web Audio tone is short (150ms), soft, and bypasses autoplay restrictions by being triggered inside the click handler. It adds a tactile feel without being intrusive.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 11. Learnings -->
+  <section class="section" id="s11">
+    <div class="sec-head"><span class="sec-num">11</span><h2>Skills Practiced &amp; Learnings</h2></div>
+
+    <h3>Math &amp; Logic</h3>
+    <ul>
+      <li><strong>Mathematical edge cases</strong> — zero, negative inputs, irrational results, and imaginary numbers</li>
+      <li><strong>Pure function design</strong> — separating math logic from DOM and UI side effects</li>
+      <li><strong>Precision handling</strong> — understanding floating-point limits and using <code>toFixed()</code> for display</li>
+    </ul>
+
+    <h3>JavaScript</h3>
+    <ul>
+      <li><strong>Web Audio API</strong> — creating oscillators, controlling frequency, managing AudioContext lifecycle</li>
+      <li><strong>Clipboard API</strong> — <code>navigator.clipboard.writeText()</code> for modern copy-to-clipboard</li>
+      <li><strong>DOM manipulation</strong> — dynamic list building, <code>prepend()</code> for history, error injection</li>
+      <li><strong>Keyboard events</strong> — binding shortcut keys with focus guards to prevent input interference</li>
+      <li><strong>Error handling</strong> — try/catch flow with themed, user-friendly messages instead of console errors</li>
+    </ul>
+
+    <h3>CSS &amp; Design</h3>
+    <ul>
+      <li><strong>CSS custom properties</strong> for theme switching — one attribute change reskins the entire app</li>
+      <li><strong>Sanrio-accurate color palette</strong> — researching official brand colors for authenticity</li>
+      <li><strong>Personality-driven UX</strong> — how quotes, sounds, and theming affect a user's emotional experience</li>
+      <li><strong>Responsive, accessible layout</strong> — ensuring the two-panel layout works cleanly on all screen sizes</li>
+    </ul>
+  </section>
+
+  <!-- 12. Conclusion -->
+  <section class="section" id="s12">
+    <div class="sec-head"><span class="sec-num">12</span><h2>Conclusion 🖤🩷</h2></div>
+    <div class="concl-box">
+      <p>Kuromi's Chaos Calculator is proof that the best projects come from <strong>real, personal motivation</strong>. It wasn't built to impress anyone or to check a skill off a list — it was built so one person's experience with math could be a little softer, a little more fun, and a lot more <em>her</em>.</p>
+      <p>Technically, it exercises a meaningful range of front-end skills: pure function math logic, DOM manipulation, the Web Audio API, clipboard integration, keyboard shortcuts, CSS theming, and error handling. But the real design challenge was the human one — building something that <strong>feels like a product someone loves</strong>, not just a tool that works.</p>
+      <p>The Mischief List, the sarcastic quotes, the oscillator tone, the toggle between dark mischief and soft sweetness — none of that was required by the math. All of it was required by the person it was made for. That balance between function and feeling is what makes this more than a practice project. <strong>It's a gift.</strong> 🖤</p>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  Kuromi's Chaos Calculator &nbsp;·&nbsp; Case Study &nbsp;·&nbsp; Built with <span>♡</span> for a sister
+</footer>
+
+</body>
+</html>
