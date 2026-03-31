@@ -167,17 +167,10 @@ body.dark-theme {
     color: var(--secondary-color);
 }
 
-.cta-btn.primary{
+.cta-btn{
   text-decoration: none;
-  padding:14px 24px;
+  padding:0.8rem 2rem 0.8rem 0.2rem;
   color:#000;
-  transition:.3s;
-}
-
-.cta-btn.secondary{
-  text-decoration: none;
-  padding:14px 24px;
-  color:#ffffff;
   transition:.3s;
 }
 
