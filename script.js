@@ -18,7 +18,7 @@ const CONFIG = {
   scrollOffset: 150
 };
 
-const TYPING_PHRASES = ['UI/UX Designer', 'Frontend Developer'];
+const TYPING_PHRASES = ['UI/UX Designer', 'Web Developer'];
 
 // =====================================================
 // UTILITY FUNCTIONS
