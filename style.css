@@ -607,8 +607,14 @@ body.dark-theme {
     font-weight: 600;
     text-decoration: none;
     transition: color 0.3s;
-    border: 1px solid var(--text-color);
-    border-radius: 12px
+    border-radius: 22px;
+    border: 1px solid var(--text-t1);
+    padding: 8px 16px;
+}
+
+.view-project-btn{
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
 }
 
 .view-project-btn:hover, .view-case-study-btn:hover {
