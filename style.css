@@ -173,6 +173,13 @@ body.dark-theme {
   transition:.3s;
 }
 
+.cta-btn.secondary{
+  text-decoration: none;
+  padding:14px 24px;
+  color:#ffffff;
+  transition:.3s;
+}
+
 /* Dot styling */
 .status-dot{
   font-size:12px;
