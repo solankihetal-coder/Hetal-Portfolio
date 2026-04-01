@@ -685,79 +685,97 @@ body.dark-theme {
 /* ===================================================================
    EXPERIENCE SECTION
 ====================================================================== */
-
-.experience-section{
-  padding:5rem 1.5rem;
-  max-width:1100px;
-  margin:auto;
+.experience-section {
+  padding: 5rem 1.5rem;
+  max-width: 1100px;
+  margin: auto;
   margin-top: 5rem;
 }
-
-.experience-list{
-  display:flex;
-  flex-direction:column;
-  gap:1.25rem;
-  text-align:left;
+ 
+.experience-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  text-align: left;
 }
-
-/* CARD */
-.experience-card{
-  background:#fff;
-  border-radius:18px;
-  padding:1.25rem 1.5rem;
-  display:flex;
-  flex-direction:row;
-  justify-content:space-between;
-  align-items:center;   /* ⭐ KEY — aligns both sides on same baseline */
-  width:100%;
-  gap:1rem;
-  box-shadow:0 12px 30px rgba(0,0,0,.06);
-  transition:transform .4s ease, box-shadow .4s ease;
+ 
+/* CARD — only change: align-items flex-start */
+.experience-card {
+  background: #fff;
+  border-radius: 18px;
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;   /* ← was: center. Fixes description misalignment */
+  width: 100%;
+  gap: 1rem;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
 }
-
-.experience-card:hover{
-  transform:translateY(-4px);
-  box-shadow:0 18px 45px rgba(0,0,0,.08);
+ 
+.experience-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.08);
 }
-
-/* COMPANY */
-.company{
-  display:flex;
-  gap:1rem;
-  align-items:center;
+ 
+/* COMPANY — only change: align-items flex-start */
+.company {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;   /* ← was: center. Logo stays top-aligned with title */
+  flex: 1;                   /* ← takes remaining space, pushes meta to the right */
 }
-
-.logo{
-  width:44px;
-  height:44px;
-  border-radius:14px;
-  background:#f5f5f5;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-weight:700;
+ 
+/* Logo stays top-aligned, add a tiny top offset to sit beside the h3 */
+.logo {
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  background: #f5f5f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  flex-shrink: 0;             /* ← prevents logo squishing when text is long */
+  margin-top: 2px;            /* ← tiny nudge so logo optically aligns with h3 */
 }
-
-.company h3{
-  font-size:1rem;
-  margin-bottom:.2rem;
+ 
+.company-text {
+  display: flex;
+  flex-direction: column;
 }
-
-.company-name{
-  font-size:.9rem;
-  color:#555;
+ 
+.company h3 {
+  font-size: 1rem;
+  margin-bottom: 0.2rem;
 }
-
-/* META */
-.meta{
-  display:flex;
-  flex-direction:column;
-  font-size:.85rem;
-  color:#777;
-  align-items:flex-end;
-  text-align:right;
-  line-height:1.3;
-
+ 
+.company-name {
+  font-size: 0.9rem;
+  color: #555;
+}
+ 
+.responsibilities {
+  font-size: 0.8rem;
+  color: #888;
+  margin-top: 0.4rem;
+  line-height: 1.55;
+  max-width: 520px;           /* ← stops text running into the meta column */
+}
+ 
+/* META — pinned top-right, no change to its look */
+.meta {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.85rem;
+  color: #777;
+  align-items: flex-end;
+  text-align: right;
+  line-height: 1.3;
+  flex-shrink: 0;             /* ← prevents date column from wrapping */
+  white-space: nowrap;        /* ← keeps "April 2025 – April 2026 · On-site" on one line */
+  padding-top: 2px;           /* ← optically aligns with h3 */
 }
 
 /* =================================================================
@@ -1560,58 +1578,7 @@ body.dark-theme {
     }
 
         /* Stack the top layout */
-  .experience-card{
-    display:flex;
-    flex-direction:column;
-    align-items:flex-start;
-    gap:.4rem;
-  }
-
-  /* Company row */
-  .company{
-    display:flex;
-    align-items:flex-start;
-    gap:.6rem;
-    width:100%;
-  }
-
-  /* Text block beside logo */
-  .company-text{
-    display:flex;
-    flex-direction:column;
-  }
-
-  /* Meta goes below text */
-  .meta{
-    display:flex;
-    flex-direction:column;
-    align-items:flex-start;
-    text-align:left;
-    padding-left:45px;   /* ⭐ aligns with text after logo */
-    margin-top:.2rem;
-    line-height:1.35;
-  }
-
-  /* Smaller logo for mobile */
-  .logo{
-    width:36px;
-    height:36px;
-    border-radius:10px;
-  }
-
-  /* Typography tuning like screenshot */
-  .company h3{
-    font-size:.95rem;
-  }
-
-  .company-name{
-    font-size:.8rem;
-  }
-  
-  .meta, .location{
-    font-size:.72rem;
-    color:#777;
-  }
+ 
 
     .software-grid{
         display:grid;
