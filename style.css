@@ -1142,16 +1142,11 @@ body.dark-theme {
     gap: 2rem;
 }
 
-.info-card,
+
 .contact-card {
     background-color: var(--secondary-color);
     border-radius: 10px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-}
-
-.info-card {
-    padding: 2rem;
-    text-align: center;
 }
 
 .contact-card {
@@ -1245,6 +1240,11 @@ body.dark-theme {
 }
 
 /* Response Card (Success/Error Message) */
+
+.info-card {
+  padding: 2rem;
+  text-align: center;
+}
 .response-card .info-icon {
     width: 60px;
     height: 60px;
