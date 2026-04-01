@@ -545,7 +545,7 @@
     <section id="contact" class="contact-section">
         <p class="section-tag">( Contact )</p>
         <h2 class="section-title"><em>Let's</em> <strong>Talk</strong></h2>
-        <div class="contact-grid">
+        <!-- <div class="contact-grid">
             <div class="contact-form-container">
                 <form action="https://formspree.io/f/mgolvkea" method="POST" class="contact-form">
                     <div class="form-group">
@@ -569,7 +569,77 @@
                 </form>
             </div>
             
-            </div>
+            </div> -->
+
+        <div class="contact-form-container">
+ 
+  <!-- ── FORM (shown by default) ── -->
+  <form id="contact-form" action="https://formspree.io/f/mgolvkea" method="POST" class="contact-form">
+    <div class="form-group">
+      <label for="name">Your Name</label>
+      <input type="text" id="name" name="name" required />
+    </div>
+    <div class="form-group">
+      <label for="email">Your Email</label>
+      <input type="email" id="email" name="email" required />
+    </div>
+    <div class="form-group">
+      <label for="message">Message me</label>
+      <textarea id="message" name="message" rows="5" maxlength="500"></textarea>
+      <div class="char-count">
+        <span id="current-char">0</span>/500 characters
+      </div>
+    </div>
+    <button type="submit" class="submit-btn" id="submit-btn">
+      Send Message <i class="fas fa-paper-plane"></i>
+    </button>
+  </form>
+ 
+  <!-- ── SUCCESS CARD (hidden by default, shown after send) ── -->
+  <div class="info-card response-card" id="success-card" style="display: none;">
+    <div class="info-icon">
+      <i class="fas fa-check"></i>
+    </div>
+    <h4>Message Sent!</h4>
+    <p>Thanks for reaching out. I'll get back to you soon. 🙌</p>
+    <button
+      onclick="resetContactForm()"
+      style="
+        margin-top: 1rem;
+        padding: 0.6rem 1.5rem;
+        border-radius: 50px;
+        border: 1px solid #000;
+        background: transparent;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s;
+      "
+      onmouseover="this.style.background='#000';this.style.color='#fff'"
+      onmouseout="this.style.background='transparent';this.style.color='#000'"
+    >
+      Send another message
+    </button>
+  </div>
+ 
+  <!-- ── ERROR BANNER (hidden by default, shown on network failure) ── -->
+  <div
+    id="error-banner"
+    style="
+      display: none;
+      margin-top: 1rem;
+      padding: 0.9rem 1.2rem;
+      background: #fff5f5;
+      border: 1px solid #fca5a5;
+      border-radius: 10px;
+      color: #991b1b;
+      font-size: 0.9rem;
+    "
+  >
+    <i class="fas fa-exclamation-circle"></i>
+    &nbsp; Something went wrong. Please try again or email me directly.
+  </div>
+ 
+</div>
     </section>
 
     <footer class="footer">
