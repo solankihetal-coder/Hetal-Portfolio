@@ -542,6 +542,8 @@ const App = {
     SmoothScroll.init();
     ScrollSpy.init();
     HamburgerMenu.init();
+     
+    ContactForm.init(); 
 
     // Filters
     ProjectFilter.init();
@@ -559,6 +561,76 @@ const App = {
     console.log('✅ Portfolio website initialized successfully');
   }
 };
+
+// =====================================================
+// CONTACT FORM — FETCH SUBMIT
+// Add this block to script.js, before App.init()
+// =====================================================
+
+const ContactForm = {
+  init() {
+    const form        = document.getElementById('contact-form');
+    const submitBtn   = document.getElementById('submit-btn');
+    const successCard = document.getElementById('success-card');
+    const errorBanner = document.getElementById('error-banner');
+
+    if (!form) return;
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault(); // stop the default page-redirect POST
+
+      // ── 1. Loading state ──────────────────────────────
+      submitBtn.disabled    = true;
+      submitBtn.innerHTML   = 'Sending… <i class="fas fa-spinner fa-spin"></i>';
+      errorBanner.style.display = 'none'; // hide any previous error
+
+      try {
+        // ── 2. Send via fetch ─────────────────────────
+        const response = await fetch(form.action, {
+          method:  'POST',
+          body:    new FormData(form),
+          headers: { 'Accept': 'application/json' }
+        });
+
+        if (response.ok) {
+          // ── 3a. SUCCESS — hide form, show card ──────
+          form.style.display        = 'none';
+          successCard.style.display = 'block';
+        } else {
+          // ── 3b. Server error (e.g. 422 from Formspree)
+          throw new Error('Server responded with ' + response.status);
+        }
+
+      } catch (err) {
+        // ── 4. Network / unexpected error ────────────
+        console.error('Form submission error:', err);
+        errorBanner.style.display = 'block';
+
+        // Reset button so user can try again
+        submitBtn.disabled  = false;
+        submitBtn.innerHTML = 'Send Message <i class="fas fa-paper-plane"></i>';
+      }
+    });
+  }
+};
+
+// ── "Send another message" resets everything ─────────────
+function resetContactForm() {
+  const form        = document.getElementById('contact-form');
+  const successCard = document.getElementById('success-card');
+  const errorBanner = document.getElementById('error-banner');
+  const submitBtn   = document.getElementById('submit-btn');
+  const charCount   = document.getElementById('current-char');
+
+  form.reset();                              // clears all fields
+  form.style.display        = 'block';       // show form again
+  successCard.style.display = 'none';        // hide success card
+  errorBanner.style.display = 'none';        // hide error banner
+  submitBtn.disabled        = false;
+  submitBtn.innerHTML       = 'Send Message <i class="fas fa-paper-plane"></i>';
+  if (charCount) charCount.textContent = '0'; // reset char counter
+}
+
 
 // =====================================================
 // START APPLICATION
