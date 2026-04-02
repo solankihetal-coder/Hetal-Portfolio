@@ -169,7 +169,7 @@ body.dark-theme {
 
 .cta-btn{
   text-decoration: none;
-  padding: 0.8rem 0.2rem 0.8rem 0.2rem;
+  padding: 0.8rem 2rem 0.8rem 0.2rem;
   color:#000;
   transition:.3s;
 }
@@ -1533,6 +1533,10 @@ body.dark-theme {
         justify-content: center;
         flex-wrap: wrap;
     }
+
+   .cta-btn{
+      padding: 0.8rem 0.2rem 0.8rem 0.2rem;
+   }
 
     /* Padding Adjustments */
     .projects-section,
