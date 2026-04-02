@@ -1534,10 +1534,6 @@ body.dark-theme {
         flex-wrap: wrap;
     }
 
-   .cta-btn{
-      padding: 0.8rem 0.2rem 0.8rem 0.2rem;
-   }
-
     /* Padding Adjustments */
     .projects-section,
     .skills-section,
