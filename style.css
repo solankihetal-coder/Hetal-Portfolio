@@ -169,7 +169,7 @@ body.dark-theme {
 
 .cta-btn{
   text-decoration: none;
-  padding: 0.8rem 2rem 0.8rem 0.2rem;
+  padding: 0.8rem 0.2rem 0.8rem 2rem;
   color:#000;
   transition:.3s;
 }
