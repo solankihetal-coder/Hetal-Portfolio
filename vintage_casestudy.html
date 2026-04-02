@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vintage Vogue — Case Study</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,600&family=Jost:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --sand:      #e8e0cc;
+    --parchment: #d9cfb3;
+    --khaki:     #a08c5b;
+    --olive:     #7d6e45;
+    --bark:      #5c4e2e;
+    --dark:      #2e2515;
+    --warm-white:#f5f0e6;
+    --ink:       #1e1a10;
+    --muted:     #7a6e56;
+    --rule:      rgba(92,78,46,0.18);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Jost', sans-serif;
+    background: var(--sand);
+    color: var(--ink);
+    font-size: 16px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  /* ── GRAIN TEXTURE ── */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none; z-index: 0; opacity: 0.5;
+  }
+
+  /* ── COVER ── */
+  .cover {
+    background: var(--bark);
+    padding: 80px 64px 72px;
+    position: relative; overflow: hidden; z-index: 1;
+  }
+  .cover-ornament {
+    position: absolute;
+    font-family: 'Playfair Display', serif;
+    font-size: 260px;
+    font-style: italic;
+    color: rgba(255,255,255,0.04);
+    top: -40px; right: -20px;
+    line-height: 1;
+    pointer-events: none;
+    letter-spacing: -8px;
+  }
+  .cover-rule {
+    width: 56px; height: 1px;
+    background: var(--khaki);
+    margin-bottom: 22px;
+  }
+  .cover-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 10.5px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--parchment);
+    margin-bottom: 20px;
+    opacity: 0.7;
+  }
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(42px, 7vw, 76px);
+    font-weight: 400;
+    font-style: italic;
+    color: var(--warm-white);
+    line-height: 1.05;
+    margin-bottom: 8px;
+    position: relative;
+  }
+  .cover-sub {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(14px, 2vw, 18px);
+    color: var(--parchment);
+    font-style: italic;
+    opacity: 0.75;
+    margin-bottom: 40px;
+    position: relative;
+  }
+  .cover-chips { display: flex; flex-wrap: wrap; gap: 8px; position: relative; }
+  .chip {
+    font-family: 'DM Mono', monospace;
+    font-size: 10.5px;
+    padding: 5px 14px;
+    border-radius: 100px;
+    letter-spacing: 0.06em;
+    border: 1px solid rgba(208,191,160,0.35);
+    color: var(--parchment);
+    background: rgba(208,191,160,0.08);
+  }
+
+  /* ── TOC ── */
+  .toc-bar {
+    background: var(--dark);
+    padding: 16px 64px;
+    position: relative; z-index: 1;
+  }
+  .toc-inner {
+    max-width: 960px; margin: 0 auto;
+    display: flex; flex-wrap: wrap; gap: 5px 20px; align-items: center;
+  }
+  .toc-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9.5px; letter-spacing: 0.2em;
+    color: rgba(208,191,160,0.35); text-transform: uppercase;
+    flex-shrink: 0; margin-right: 8px;
+  }
+  .toc-link {
+    font-family: 'DM Mono', monospace;
+    font-size: 10.5px; color: rgba(208,191,160,0.45);
+    text-decoration: none; transition: color 0.2s;
+  }
+  .toc-link:hover { color: var(--parchment); }
+
+  /* ── PAGE ── */
+  .page { max-width: 960px; margin: 0 auto; padding: 0 40px 80px; position: relative; z-index: 1; }
+
+  /* ── SECTIONS ── */
+  .section { padding: 60px 0 0; margin-top: 60px; border-top: 1px solid var(--rule); }
+  .sec-head { display: flex; align-items: center; gap: 16px; margin-bottom: 30px; }
+  .sec-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px; color: var(--khaki);
+    background: rgba(160,140,91,0.1);
+    border: 1px solid rgba(160,140,91,0.25);
+    border-radius: 6px; padding: 4px 10px;
+    flex-shrink: 0; letter-spacing: 0.1em;
+  }
+  h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(22px, 3.5vw, 32px);
+    font-weight: 400; font-style: italic;
+    color: var(--dark); line-height: 1.2;
+  }
+  h3 {
+    font-family: 'Jost', sans-serif;
+    font-size: 11px; font-weight: 500;
+    text-transform: uppercase; letter-spacing: 0.15em;
+    color: var(--khaki); margin: 34px 0 14px;
+  }
+  p { color: var(--muted); margin-bottom: 16px; max-width: 68ch; font-weight: 300; }
+  strong { color: var(--ink); font-weight: 500; }
+
+  /* ── STORY CARD ── */
+  .story-card {
+    background: var(--dark);
+    border-radius: 16px; padding: 36px 40px;
+    margin-bottom: 28px; position: relative; overflow: hidden;
+  }
+  .story-card::before {
+    content: '"';
+    position: absolute; left: 20px; top: -10px;
+    font-family: 'Playfair Display', serif;
+    font-size: 120px; color: rgba(208,191,160,0.06);
+    line-height: 1; pointer-events: none;
+  }
+  .story-card p { color: rgba(232,224,204,0.65); max-width: 100%; position: relative; }
+  .story-quote {
+    font-family: 'Playfair Display', serif;
+    font-style: italic; font-size: 18px;
+    color: var(--parchment) !important;
+    border-left: 2px solid var(--khaki);
+    padding-left: 18px; margin: 16px 0 !important; line-height: 1.6;
+  }
+
+  /* ── OVERVIEW STATS ── */
+  .stat-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 12px; margin-bottom: 32px;
+  }
+  .stat-card {
+    background: var(--warm-white);
+    border: 1px solid var(--rule);
+    border-radius: 14px; padding: 20px 18px 16px;
+    text-align: center;
+  }
+  .stat-icon { font-size: 22px; margin-bottom: 6px; }
+  .stat-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9.5px; letter-spacing: 0.14em;
+    color: var(--muted); text-transform: uppercase; margin-bottom: 5px;
+  }
+  .stat-val {
+    font-family: 'Playfair Display', serif;
+    font-size: 15px; font-style: italic;
+    color: var(--bark); line-height: 1.3;
+  }
+
+  /* ── DESIGN DECISION CARDS ── */
+  .decision-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 14px; margin-bottom: 28px;
+  }
+  .decision-card {
+    background: var(--warm-white);
+    border: 1px solid var(--rule);
+    border-radius: 14px; padding: 22px 24px;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .decision-card:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(46,37,21,0.1); }
+  .dec-icon { font-size: 24px; margin-bottom: 10px; display: block; }
+  .decision-card h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 15px; font-style: italic;
+    color: var(--dark); margin-bottom: 8px;
+  }
+  .decision-card p { font-size: 13.5px; margin: 0; }
+
+  /* ── COLOUR PALETTE ── */
+  .palette-row { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 28px; }
+  .swatch {
+    display: flex; flex-direction: column;
+    align-items: center; gap: 8px;
+  }
+  .swatch-block {
+    width: 72px; height: 72px;
+    border-radius: 12px;
+    border: 1px solid var(--rule);
+  }
+  .swatch-name {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px; color: var(--muted);
+    text-align: center; letter-spacing: 0.06em;
+  }
+  .swatch-hex {
+    font-family: 'DM Mono', monospace;
+    font-size: 9.5px; color: var(--khaki);
+    text-align: center;
+  }
+
+  /* ── TYPOGRAPHY SHOWCASE ── */
+  .type-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px; margin-bottom: 28px;
+  }
+  .type-card {
+    background: var(--warm-white);
+    border: 1px solid var(--rule);
+    border-radius: 14px; padding: 24px 26px;
+  }
+  .type-specimen-serif {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px; font-style: italic;
+    color: var(--bark); line-height: 1.2; margin-bottom: 8px;
+  }
+  .type-specimen-sans {
+    font-family: 'Jost', sans-serif;
+    font-size: 14px; font-weight: 300;
+    color: var(--muted); letter-spacing: 0.08em;
+    text-transform: uppercase; margin-bottom: 8px;
+  }
+  .type-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px; color: var(--khaki);
+    letter-spacing: 0.12em; text-transform: uppercase;
+    display: block; margin-top: 6px;
+    border-top: 1px solid var(--rule); padding-top: 8px;
+  }
+
+  /* ── SECTIONS BREAKDOWN ── */
+  .section-breakdown {
+    display: flex; flex-direction: column; gap: 0;
+    margin: 20px 0 28px; position: relative;
+  }
+  .section-breakdown::before {
+    content: '';
+    position: absolute; left: 16px; top: 8px; bottom: 8px;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--khaki), var(--parchment), rgba(160,140,91,0.1));
+  }
+  .sb-step {
+    display: flex; gap: 18px;
+    padding: 14px 0 14px 46px; position: relative;
+  }
+  .sb-dot {
+    position: absolute; left: 9px; top: 18px;
+    width: 16px; height: 16px; border-radius: 50%;
+    background: var(--khaki); z-index: 1;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .sb-dot::after {
+    content: ''; width: 6px; height: 6px;
+    border-radius: 50%; background: var(--warm-white);
+  }
+  .sb-body h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 15px; font-style: italic;
+    color: var(--dark); margin-bottom: 3px;
+  }
+  .sb-body p { font-size: 13.5px; margin: 0; }
+
+  /* ── TABLES ── */
+  .tbl-wrap {
+    overflow-x: auto; border-radius: 14px;
+    border: 1px solid var(--rule);
+    margin: 16px 0 28px;
+  }
+  table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+  thead tr { background: var(--bark); }
+  thead th {
+    padding: 13px 18px; text-align: left;
+    font-family: 'Playfair Display', serif;
+    font-size: 13px; font-style: italic;
+    color: var(--warm-white); font-weight: 400;
+    white-space: nowrap;
+  }
+  tbody tr { border-top: 1px solid var(--rule); transition: background 0.15s; }
+  tbody tr:nth-child(even) { background: rgba(160,140,91,0.04); }
+  tbody tr:hover { background: rgba(160,140,91,0.09); }
+  tbody td { padding: 11px 18px; color: var(--muted); vertical-align: top; }
+  tbody td:first-child { color: var(--ink); font-weight: 500; }
+
+  /* ── CHALLENGE CARDS ── */
+  .ch-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 14px; margin-bottom: 28px;
+  }
+  .ch-card {
+    background: var(--warm-white);
+    border: 1px solid var(--rule);
+    border-top: 3px solid;
+    border-radius: 14px; padding: 20px 22px;
+  }
+  .ch-a { border-top-color: var(--khaki); }
+  .ch-b { border-top-color: var(--bark); }
+  .ch-c { border-top-color: var(--olive); }
+  .ch-d { border-top-color: var(--dark); }
+  .ch-card h4 {
+    font-family: 'Playfair Display', serif;
+    font-size: 14px; font-style: italic;
+    margin-bottom: 7px;
+  }
+  .ch-a h4 { color: var(--khaki); }
+  .ch-b h4 { color: var(--bark); }
+  .ch-c h4 { color: var(--olive); }
+  .ch-d h4 { color: var(--dark); }
+  .ch-card p { font-size: 13px; margin: 0; }
+
+  /* ── INSIGHT LIST ── */
+  .insight-list { display: flex; flex-direction: column; gap: 12px; margin-bottom: 28px; }
+  .insight-item {
+    display: flex; gap: 14px;
+    background: var(--warm-white);
+    border: 1px solid var(--rule);
+    border-radius: 14px; padding: 18px 22px;
+    align-items: flex-start;
+  }
+  .ins-bar { width: 3px; align-self: stretch; border-radius: 2px; flex-shrink: 0; }
+  .bar-k { background: var(--khaki); }
+  .bar-b { background: var(--bark); }
+  .bar-o { background: var(--olive); }
+  .bar-d { background: var(--dark); }
+  .insight-item strong {
+    display: block; font-family: 'Playfair Display', serif;
+    font-style: italic; font-size: 15px; font-weight: 400;
+    color: var(--dark); margin-bottom: 4px;
+  }
+  .insight-item p { font-size: 13.5px; margin: 0; }
+
+  /* ── UL ── */
+  ul { list-style: none; padding: 0; margin-bottom: 20px; }
+  ul li {
+    position: relative; padding: 6px 0 6px 20px;
+    color: var(--muted); font-size: 14.5px; font-weight: 300;
+    border-bottom: 1px solid var(--rule);
+  }
+  ul li:last-child { border-bottom: none; }
+  ul li::before {
+    content: '—';
+    position: absolute; left: 0; top: 6px;
+    color: var(--khaki); font-size: 12px;
+  }
+  li strong { color: var(--ink); }
+
+  /* ── CONCLUSION ── */
+  .concl-box {
+    background: var(--dark);
+    border-radius: 18px; padding: 44px 48px;
+    margin-top: 28px; position: relative; overflow: hidden;
+  }
+  .concl-box::before {
+    content: 'VV';
+    position: absolute; right: 24px; top: 8px;
+    font-family: 'Playfair Display', serif;
+    font-size: 100px; font-style: italic;
+    color: rgba(208,191,160,0.05); line-height: 1; pointer-events: none;
+  }
+  .concl-box p {
+    color: rgba(232,224,204,0.65);
+    font-size: 15px; line-height: 1.85;
+    max-width: 68ch; position: relative;
+  }
+  .concl-box p + p { margin-top: 14px; }
+  .concl-box strong { color: var(--parchment); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--dark);
+    border-top: 1px solid rgba(208,191,160,0.1);
+    padding: 28px 64px; text-align: center;
+    font-family: 'DM Mono', monospace;
+    font-size: 10.5px; color: rgba(208,191,160,0.3);
+    letter-spacing: 0.1em; position: relative; z-index: 1;
+  }
+  footer span { color: var(--khaki); }
+
+  @media(max-width:640px) {
+    .cover { padding: 44px 24px 40px; }
+    .toc-bar { padding: 14px 20px; }
+    .page { padding: 0 20px 60px; }
+    .type-cards { grid-template-columns: 1fr; }
+    .concl-box { padding: 28px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="cover">
+  <div class="cover-ornament">Vv</div>
+  <div class="cover-rule"></div>
+  <p class="cover-eyebrow">College Competition · First Design Project · UI/UX</p>
+  <h1>Vintage Vogue</h1>
+  <p class="cover-sub">A fashion e-commerce landing page — designed as a fresher.</p>
+  <div class="cover-chips">
+    <span class="chip">Figma</span>
+    <span class="chip">UI Design</span>
+    <span class="chip">Fashion E-commerce</span>
+    <span class="chip">College Competition</span>
+    <span class="chip">First Project</span>
+  </div>
+</div>
+
+<!-- TOC -->
+<div class="toc-bar">
+  <div class="toc-inner">
+    <span class="toc-label">Contents</span>
+    <a class="toc-link" href="#s1">01 Story</a>
+    <a class="toc-link" href="#s2">02 Overview</a>
+    <a class="toc-link" href="#s3">03 Design Decisions</a>
+    <a class="toc-link" href="#s4">04 Colour & Type</a>
+    <a class="toc-link" href="#s5">05 Page Sections</a>
+    <a class="toc-link" href="#s6">06 Challenges</a>
+    <a class="toc-link" href="#s7">07 Outcomes</a>
+    <a class="toc-link" href="#s8">08 Learnings</a>
+    <a class="toc-link" href="#s9">09 Conclusion</a>
+  </div>
+</div>
+
+<div class="page">
+
+  <!-- 1. Story -->
+  <section class="section" id="s1">
+    <div class="sec-head"><span class="sec-num">01</span><h2>The Story</h2></div>
+    <div class="story-card">
+      <p class="story-quote">"Style is a way to express your personality without having to speak."</p>
+      <p>This was my very first design project — submitted for a college competition with no prior professional experience, no design mentor, and no formal training in UI. Just a brief, a blank Figma canvas, and a strong instinct for what felt right aesthetically.</p>
+      <p>The brief was open-ended: design a landing page for a fashion brand. I chose to build <strong style="color:var(--parchment)">Vintage Vogue</strong> — a brand concept rooted in timelessness, earthy elegance, and the quiet confidence of vintage fashion. The entire colour palette, layout, typography, and content were decided independently within the competition timeframe.</p>
+    </div>
+  </section>
+
+  <!-- 2. Overview -->
+  <section class="section" id="s2">
+    <div class="sec-head"><span class="sec-num">02</span><h2>Project Overview</h2></div>
+    <div class="stat-row">
+      <div class="stat-card"><div class="stat-icon">🎓</div><div class="stat-label">Context</div><div class="stat-val">College Competition</div></div>
+      <div class="stat-card"><div class="stat-icon">🛠️</div><div class="stat-label">Tool</div><div class="stat-val">Figma</div></div>
+      <div class="stat-card"><div class="stat-icon">👤</div><div class="stat-label">Designer</div><div class="stat-val">Solo, Fresher</div></div>
+      <div class="stat-card"><div class="stat-icon">🧵</div><div class="stat-label">Domain</div><div class="stat-val">Fashion E-commerce</div></div>
+      <div class="stat-card"><div class="stat-icon">📄</div><div class="stat-label">Deliverable</div><div class="stat-val">Landing Page UI</div></div>
+    </div>
+    <p>Vintage Vogue is a fictional fashion e-commerce brand designed for the modern woman who appreciates the quiet luxury of classic silhouettes. The landing page was designed to communicate brand identity, showcase collections, display social proof, and guide users toward a purchase — all within a single scrollable page.</p>
+    <p>The design spans <strong>6 distinct sections</strong>: a hero, a new collection grid, a brand story panel, a best-seller product grid, a testimonials strip, and a footer.</p>
+  </section>
+
+  <!-- 3. Design Decisions -->
+  <section class="section" id="s3">
+    <div class="sec-head"><span class="sec-num">03</span><h2>Design Decisions</h2></div>
+    <div class="decision-grid">
+      <div class="decision-card">
+        <span class="dec-icon">🏺</span>
+        <h4>Earthy, Muted Palette</h4>
+        <p>Beige, sand, khaki, and dark bark tones were chosen to evoke vintage fabric swatches — warm, tactile, and timeless. No bright accent colours; the palette itself is the brand identity.</p>
+      </div>
+      <div class="decision-card">
+        <span class="dec-icon">✍️</span>
+        <h4>Italic Serif for Headlines</h4>
+        <p>Italic serif typography communicates fashion editorial energy — the same language used by Vogue, Elle, and Harper's Bazaar. It signals sophistication without a single extra design element.</p>
+      </div>
+      <div class="decision-card">
+        <span class="dec-icon">📐</span>
+        <h4>Asymmetric Hero Layout</h4>
+        <p>The hero places the headline on the left with a large image placeholder on the right — a deliberate editorial asymmetry that feels curated, not template-like.</p>
+      </div>
+      <div class="decision-card">
+        <span class="dec-icon">🃏</span>
+        <h4>Rounded Category Cards</h4>
+        <p>The collection cards use generous border-radius at only one corner — top-right — giving them an organic, unexpected shape that breaks the grid monotony.</p>
+      </div>
+      <div class="decision-card">
+        <span class="dec-icon">📊</span>
+        <h4>Stats Strip for Trust</h4>
+        <p>A horizontal stats bar showing "Since 2015 · 9800+ Product Sales · 5200+ Best Rewards" establishes credibility and grounds the brand story section.</p>
+      </div>
+      <div class="decision-card">
+        <span class="dec-icon">🔲</span>
+        <h4>Dark Footer with Nav Repeat</h4>
+        <p>Repeating the navigation inside the footer is a UX convention that reduces friction for users who've scrolled to the bottom and want to navigate without scrolling back up.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. Colour & Type -->
+  <section class="section" id="s4">
+    <div class="sec-head"><span class="sec-num">04</span><h2>Colour &amp; Typography</h2></div>
+
+    <h3>Colour Palette</h3>
+    <div class="palette-row">
+      <div class="swatch">
+        <div class="swatch-block" style="background:#e8e0cc"></div>
+        <div class="swatch-name">Sand</div>
+        <div class="swatch-hex">#e8e0cc</div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-block" style="background:#d9cfb3"></div>
+        <div class="swatch-name">Parchment</div>
+        <div class="swatch-hex">#d9cfb3</div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-block" style="background:#a08c5b"></div>
+        <div class="swatch-name">Khaki</div>
+        <div class="swatch-hex">#a08c5b</div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-block" style="background:#7d6e45"></div>
+        <div class="swatch-name">Olive</div>
+        <div class="swatch-hex">#7d6e45</div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-block" style="background:#5c4e2e"></div>
+        <div class="swatch-name">Bark</div>
+        <div class="swatch-hex">#5c4e2e</div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-block" style="background:#2e2515;border:1px solid #555"></div>
+        <div class="swatch-name">Dark</div>
+        <div class="swatch-hex">#2e2515</div>
+      </div>
+    </div>
+
+    <h3>Typography System</h3>
+    <div class="type-cards">
+      <div class="type-card">
+        <div class="type-specimen-serif">Vintage Vogue</div>
+        <span class="type-label">Display — Playfair Display Italic · Headlines, brand name, section titles</span>
+      </div>
+      <div class="type-card">
+        <div class="type-specimen-sans">New Collection</div>
+        <span class="type-label">Body — Light Sans-serif · Navigation, body copy, labels, tags</span>
+      </div>
+    </div>
+
+    <h3>Why this combination works</h3>
+    <p>The italic serif creates the editorial, high-fashion voice while a clean light sans-serif underneath keeps the UI functional and scannable. The contrast between formal and minimal is exactly the tension that luxury fashion brands use — think any printed magazine masthead.</p>
+  </section>
+
+  <!-- 5. Page Sections -->
+  <section class="section" id="s5">
+    <div class="sec-head"><span class="sec-num">05</span><h2>Page Sections Breakdown</h2></div>
+    <div class="section-breakdown">
+      <div class="sb-step"><span class="sb-dot"></span><div class="sb-body"><h4>Navigation Bar</h4><p>Logo left, category links centre (Men, Women, Child, Collection, Trends), search field and Login/Sign up pill button right. Minimal, flat, no background — lets the hero breathe.</p></div></div>
+      <div class="sb-step"><span class="sb-dot"></span><div class="sb-body"><h4>Hero Section</h4><p>Two-column asymmetric layout. Left: italic headline + subtext + "Shop now" pill CTA. Right: large image placeholder with a distinctive single-corner-rounded shape — the brand's visual signature.</p></div></div>
+      <div class="sb-step"><span class="sb-dot"></span><div class="sb-body"><h4>New Collection Grid</h4><p>Three category cards — Summer Wear, Ethnics, Western Wear — each with a tonal colour block and bottom label. "See more" CTA below. Section subtitle: "Empowering lives through style and compassion."</p></div></div>
+      <div class="sb-step"><span class="sb-dot"></span><div class="sb-body"><h4>Brand Story + Stats</h4><p>Right-aligned text block with italic headline "Best fashion brand since 2015." Left: large organic-shaped image. Below: three stat pills — 2015 / 9800+ Product sales / 5200+ Best reward.</p></div></div>
+      <div class="sb-step"><span class="sb-dot"></span><div class="sb-body"><h4>Best Seller Products</h4><p>Left column: section title + description + "Learn more" CTA. Right: 2×3 product card grid with tonal placeholder images and "product name" labels at the bottom of each card.</p></div></div>
+      <div class="sb-step"><span class="sb-dot"></span><div class="sb-body"><h4>Testimonials Strip</h4><p>Three full-width testimonial cards with avatar circle and customer name at the bottom. Dark muted background colour differentiates this section from the rest of the page.</p></div></div>
+      <div class="sb-step"><span class="sb-dot"></span><div class="sb-body"><h4>Footer</h4><p>Dark background. Navigation repeated horizontally. Copyright line. Instagram handle: @Vintage_Vogue_. Minimal and clean — no unnecessary clutter.</p></div></div>
+    </div>
+  </section>
+
+  <!-- 6. Challenges -->
+  <section class="section" id="s6">
+    <div class="sec-head"><span class="sec-num">06</span><h2>Challenges as a Fresher</h2></div>
+    <div class="ch-grid">
+      <div class="ch-card ch-a">
+        <h4>No Design System to Reference</h4>
+        <p>As a first-timer, there was no component library or pre-set style guide to lean on. Every decision — font size, card padding, border-radius — had to be made from scratch by eye.</p>
+      </div>
+      <div class="ch-card ch-b">
+        <h4>Building Brand Identity from Zero</h4>
+        <p>The brand name, tagline, colour story, and tone of voice were all invented. Creating a coherent brand persona without a brief is harder than designing to one.</p>
+      </div>
+      <div class="ch-card ch-c">
+        <h4>Hierarchy Without Colour Contrast</h4>
+        <p>A monochromatic earthy palette means all hierarchy has to come from type size, weight, and spacing alone — colour can't do the work. Getting this right took multiple iterations.</p>
+      </div>
+      <div class="ch-card ch-d">
+        <h4>Designing for a Grid Without Knowing Grid Systems</h4>
+        <p>The product grid and collection cards were designed intuitively before any formal knowledge of 8-point grids or column structures — the consistency came from careful eye-matching.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. Outcomes -->
+  <section class="section" id="s7">
+    <div class="sec-head"><span class="sec-num">07</span><h2>Outcomes</h2></div>
+    <div class="insight-list">
+      <div class="insight-item">
+        <div class="ins-bar bar-k"></div>
+        <div><strong>Competed Successfully as a Fresher</strong><p>Submitted a complete, polished landing page design to a college competition with no prior formal design education — proof that instinct and aesthetic sensitivity matter as much as technical training at the start.</p></div>
+      </div>
+      <div class="insight-item">
+        <div class="ins-bar bar-b"></div>
+        <div><strong>Established a Coherent Brand World</strong><p>Vintage Vogue feels like a real brand — the palette, typography, naming, tagline, and stats all tell a consistent story. For a first project, creating that cohesion is the hardest achievement.</p></div>
+      </div>
+      <div class="insight-item">
+        <div class="ins-bar bar-o"></div>
+        <div><strong>All Key E-commerce Sections Covered</strong><p>The page includes every section a real fashion landing page needs — hero, collection showcase, brand credibility, product grid, social proof, and footer navigation. Nothing was missing.</p></div>
+      </div>
+      <div class="insight-item">
+        <div class="ins-bar bar-d"></div>
+        <div><strong>Strong Visual Identity Through Restraint</strong><p>Choosing not to use bright colours, gradients, or decorative elements was a bold call for a first project. The restraint itself became the design's personality — and it paid off.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. Learnings -->
+  <section class="section" id="s8">
+    <div class="sec-head"><span class="sec-num">08</span><h2>Learnings</h2></div>
+
+    <h3>Design Skills Developed</h3>
+    <ul>
+      <li><strong>Colour theory in practice</strong> — building a full palette from a single mood reference</li>
+      <li><strong>Editorial typography</strong> — pairing serif and sans-serif across hierarchy levels</li>
+      <li><strong>Layout composition</strong> — asymmetry, whitespace, and visual weight without a grid plugin</li>
+      <li><strong>Brand creation</strong> — naming, taglines, tone, and visual identity from scratch</li>
+      <li><strong>Figma fundamentals</strong> — frames, auto-layout basics, component thinking</li>
+    </ul>
+
+    <h3>What I'd Do Differently Now</h3>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Area</th><th>Then</th><th>Now I'd add</th></tr></thead>
+        <tbody>
+          <tr><td>Accessibility</td><td>No contrast checks</td><td>WCAG AA contrast ratios on all text</td></tr>
+          <tr><td>Spacing</td><td>Matched by eye</td><td>8-point grid system throughout</td></tr>
+          <tr><td>Components</td><td>One-off elements</td><td>Reusable component library in Figma</td></tr>
+          <tr><td>Mobile</td><td>Desktop only</td><td>Responsive breakpoints (768px, 375px)</td></tr>
+          <tr><td>User Research</td><td>No research phase</td><td>Persona + competitive audit before design</td></tr>
+          <tr><td>Prototype</td><td>Static screens</td><td>Interactive Figma prototype with hover states</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 9. Conclusion -->
+  <section class="section" id="s9">
+    <div class="sec-head"><span class="sec-num">09</span><h2>Conclusion</h2></div>
+    <div class="concl-box">
+      <p>Vintage Vogue is the project that started everything. It's imperfect by every professional standard I now know — no grid system, no accessibility audit, no research, no mobile screens. But it has something that took instinct rather than training: a <strong>point of view</strong>.</p>
+      <p>The earthy palette, the italic serif voice, the single-corner-rounded shapes, the quiet restraint — none of those were accidents. They were choices made under time pressure by someone who trusted their eye before they had the vocabulary to explain why. That instinct is what design education refines, not what it creates.</p>
+      <p>Looking back, this project is less a demonstration of skill and more a demonstration of <strong>potential</strong> — which is exactly what a first college competition project should be.</p>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  Vintage Vogue &nbsp;<span>·</span>&nbsp; Case Study &nbsp;<span>·</span>&nbsp; First Design Project &nbsp;<span>·</span>&nbsp; College Competition
+</footer>
+
+</body>
+</html>
