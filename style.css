@@ -643,6 +643,7 @@ body.dark-theme {
 }
 
 .tech-tag {
+    margin-top: 2px;
     padding: 0.3rem 0.8rem;
     border-radius: 20px;
     background: #efeeee;
