@@ -639,7 +639,7 @@ body.dark-theme {
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
-    margin: 2rem 1.5rem 0 1.5rem;
+    margin: 1.2rem 1.5rem 0 1.5rem;
 }
 
 .tech-tag {
